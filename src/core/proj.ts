@@ -6,6 +6,8 @@ import PATH from '../lib/path'
 import path from 'path'
 import {archive} from '../helper/archive'
 import Listr from 'listr'
+import execa from 'execa'
+import {unilog} from '@gloxy/unilog'
 
 // demo name should be unique in a Studio
 function createDemo(name: string): string {
@@ -31,6 +33,23 @@ function createDemo(name: string): string {
     return id
   } catch (error) {
     throw new Error(`createDemo failed: ${error}`)
+  }
+}
+
+function openDemo(id: string, reuseWindow = false): void {
+  try {
+    const demoIndexItem = index.get(id)
+    if (!demoIndexItem) {
+      unilog.fail('The demo does not exist')
+      return
+    }
+
+    const {name} = demoIndexItem
+    const demoPath = path.join(PATH.ROOT, name)
+    execa('code', [demoPath, reuseWindow ? '-r' : ''])
+    unilog.succeed(`Demo '${name}' opened in ${reuseWindow ? 'the last active VSCode window' : 'a new VSCode window'}`)
+  } catch (error) {
+    throw new Error(`openDemo failed: ${error}`)
   }
 }
 
@@ -69,5 +88,6 @@ function archiveDemo(id: string): Promise<any> {
 
 export {
   createDemo,
+  openDemo,
   archiveDemo,
 }
