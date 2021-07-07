@@ -28,8 +28,25 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`gs goodbye [FILE]`](#gs-goodbye-file)
 * [`gs hello [FILE]`](#gs-hello-file)
 * [`gs help [COMMAND]`](#gs-help-command)
+
+## `gs goodbye [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ gs goodbye [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/goodbye.ts](https://github.com/GloryWong/studio/blob/v0.0.0/src/commands/goodbye.ts)_
 
 ## `gs hello [FILE]`
 
