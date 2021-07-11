@@ -1,7 +1,7 @@
 import { join } from 'path';
 
 class Path {
-  #root: string = '';
+  #root = '';
   set ROOT(val: string) {
     this.#root = val;
   }

@@ -13,14 +13,14 @@ async function archive(archiveName?: string): Promise<any> {
         title: `Move Studio folder '${archiveName}' to archive`,
         task: () => {
           return archiveStudio(root, `${archiveName}.${DateTime.now()}`);
-        }
+        },
       },
       {
-        title: 'Delete \'root\' in configuration',
+        title: "Delete 'root' in configuration",
         task: () => {
           conf.delete('root');
-        }
-      }
+        },
+      },
     ]);
 
     return tasks.run();
@@ -29,6 +29,4 @@ async function archive(archiveName?: string): Promise<any> {
   }
 }
 
-export {
-  archive
-};
+export { archive };

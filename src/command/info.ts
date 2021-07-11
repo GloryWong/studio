@@ -8,7 +8,7 @@ import chalk from 'chalk';
 import cfonts from 'cfonts';
 
 new Command()
-  .action(function() {
+  .action(function () {
     try {
       if (!initCLIOrWarning()) {
         return;
@@ -17,17 +17,19 @@ new Command()
       const { location, name, description, demoCount, locked } = getInfo();
       const bigTitle = cfonts.render('GDemo CLI', {
         font: 'block',
-        colors: ['system'],         // define all colors
-        background: 'transparent',  // define the background color, you can also use `backgroundColor` here as key
-        letterSpacing: 1,           // define letter spacing
-        lineHeight: 1,              // define the line height
+        colors: ['system'], // define all colors
+        background: 'transparent', // define the background color, you can also use `backgroundColor` here as key
+        letterSpacing: 1, // define letter spacing
+        lineHeight: 1, // define the line height
         space: true,
-        gradient: ['red', 'blue'], 
-        env: 'node'
+        gradient: ['red', 'blue'],
+        env: 'node',
       });
 
       const info = `${bigTitle.string}
-        ${chalk.bold.green('GDemo CLI')} ${chalk.bold.yellow(cliVersion)}${process.env.NODE_ENV === 'test'? ' ' + chalk.bgMagenta(' test ') : ''}
+        ${chalk.bold.green('GDemo CLI')} ${chalk.bold.yellow(cliVersion)}${
+        process.env.NODE_ENV === 'test' ? ' ' + chalk.bgMagenta(' test ') : ''
+      }
         ${chalk.white('Author: Wang Zhaohui (https://zhaozhao.today)')}
 
         Present Studio:

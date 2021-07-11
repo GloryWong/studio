@@ -17,12 +17,12 @@ export {
   existsByName,
 };
 
-function add(id: string, value: object) {
+function add(id: string, value: any): void {
   try {
     const index: Index = getAll();
     const item: IndexItem = {
       id,
-      ...value
+      ...value,
     };
     index.push(item);
     setAll(index);
@@ -38,9 +38,9 @@ function get(id: string): IndexItem | undefined {
   } catch (error) {
     throw `get failed: ${error}`;
   }
-};
+}
 
-function remove(id: string) {
+function remove(id: string): void {
   try {
     const index = getAll();
     const i = index.findIndex((item) => item.id === id);

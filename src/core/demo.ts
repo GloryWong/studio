@@ -8,7 +8,7 @@ import { archive } from '../command-helper/archive';
 import Listr from 'listr';
 
 // demo name should be unique in a Studio
-function createDemo(name: string, tags?: string[]): string {
+function createDemo(name: string): string {
   const id = uid();
   try {
     if (index.existsByName(name)) {
@@ -17,12 +17,12 @@ function createDemo(name: string, tags?: string[]): string {
 
     const demo: Demo = {
       id,
-      name
+      name,
     };
 
     storage.add(id, demo);
     index.add(id, {
-      name
+      name,
     });
 
     // create demo dir
@@ -44,21 +44,24 @@ function archiveDemo(id: string): Promise<any> {
         title: `Remove '${demoName}' from Storage`,
         task: () => {
           storage.remove(id);
-        }
+        },
       },
       {
         title: `Remove '${demoName}' from Index`,
         task: () => {
           index.remove(id);
-        }
+        },
       },
       {
         title: `Move demo folder '${demoName}' to archive`,
         task: () => {
           const { name: studioName } = path.parse(PATH.ROOT);
-          return archive(path.join(PATH.ROOT, demoName), `${studioName}.${demoName}.${id}`);
-        }
-      }
+          return archive(
+            path.join(PATH.ROOT, demoName),
+            `${studioName}.${demoName}.${id}`
+          );
+        },
+      },
     ]);
 
     return tasks.run();
@@ -67,7 +70,4 @@ function archiveDemo(id: string): Promise<any> {
   }
 }
 
-export {
-  createDemo,
-  archiveDemo
-};
+export { createDemo, archiveDemo };

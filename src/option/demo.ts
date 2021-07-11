@@ -12,10 +12,12 @@ async function createDemo(name: string): Promise<void> {
   try {
     const id = demo.createDemo(name);
 
-    const { question } : { question: boolean } = await prompt({
+    const { question }: { question: boolean } = await prompt({
       type: 'confirm',
       name: 'question',
-      message: `Created successfully. Wanna open demo ${chalk.yellow(name)} in new window?`
+      message: `Created successfully. Wanna open demo ${chalk.yellow(
+        name
+      )} in new window?`,
     });
 
     if (question) {
@@ -39,7 +41,7 @@ async function archiveDemo(id: string): Promise<void> {
     const { question }: { question: boolean } = await prompt({
       type: 'confirm',
       name: 'question',
-      message: `Are you sure to archive demo '${demoName}'?`
+      message: `Are you sure to archive demo '${demoName}'?`,
     });
 
     if (question) {
@@ -51,7 +53,7 @@ async function archiveDemo(id: string): Promise<void> {
   }
 }
 
-function openDemo(id: string, reuseWindow: boolean = false): void {
+function openDemo(id: string, reuseWindow = false): void {
   try {
     const demoIndexItem = get(id);
     if (!demoIndexItem) {
@@ -62,14 +64,14 @@ function openDemo(id: string, reuseWindow: boolean = false): void {
     const { name } = demoIndexItem;
     const demoPath = path.join(PATH.ROOT, name);
     execa('code', [demoPath, reuseWindow ? '-r' : '']);
-    unilog.succeed(`Demo '${name}' opened in ${reuseWindow ? 'the last active VSCode window' : 'a new VSCode window'}`);
+    unilog.succeed(
+      `Demo '${name}' opened in ${
+        reuseWindow ? 'the last active VSCode window' : 'a new VSCode window'
+      }`
+    );
   } catch (error) {
     throw `openDemo failed: ${error}`;
   }
 }
 
-export {
-  createDemo,
-  openDemo,
-  archiveDemo
-};
+export { createDemo, openDemo, archiveDemo };

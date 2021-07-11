@@ -6,10 +6,7 @@ import PATH from '../lib/path';
 import Listr from 'listr';
 import mkdirp from 'mkdirp';
 
-export {
-  init,
-  hasInited
-};
+export { init, hasInited };
 
 function hasInited(): boolean {
   return conf.has('root');
@@ -18,7 +15,9 @@ function hasInited(): boolean {
 /**
  * @description: the **most important** first step for Studio.
  */
-async function init(studioPath: string = process.env.STUDIO_DEFAULT_NAME!): Promise<boolean> {
+async function init(
+  studioPath: string = process.env.STUDIO_DEFAULT_NAME!
+): Promise<boolean> {
   unilog('init Studio');
   try {
     if (hasInited()) {
@@ -35,7 +34,7 @@ async function init(studioPath: string = process.env.STUDIO_DEFAULT_NAME!): Prom
         task: () => {
           mkdirp.sync(path.join(root, '.log'));
           mkdirp.sync(path.join(root, '.storage'));
-        }
+        },
       },
       {
         title: 'Create configuration',
@@ -45,8 +44,8 @@ async function init(studioPath: string = process.env.STUDIO_DEFAULT_NAME!): Prom
           conf.set('description', 'My Studio');
           conf.set('locked', true);
           PATH.ROOT = root;
-        }
-      }
+        },
+      },
     ]);
 
     await tasks.run();

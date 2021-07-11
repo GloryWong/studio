@@ -2,19 +2,26 @@ import fs from 'fs';
 import path from 'path';
 import copy from 'recursive-copy';
 
-async function archive(source: string, destName: string, subpath: string = '') {
+async function archive(
+  source: string,
+  destName: string,
+  subpath = ''
+): Promise<void> {
   try {
     // move Studio to archive
-    const archivedPath = path.join(process.env.HOME!, process.env.STUDIO_ARCHIVE_DIR!, subpath, destName);
+    const archivedPath = path.join(
+      process.env.HOME!,
+      process.env.STUDIO_ARCHIVE_DIR!,
+      subpath,
+      destName
+    );
     await copy(source, archivedPath);
     fs.rmdirSync(source, {
-      recursive: true
+      recursive: true,
     });
   } catch (error) {
     throw `archive failed: ${error}`;
   }
 }
 
-export {
-  archive
-};
+export { archive };

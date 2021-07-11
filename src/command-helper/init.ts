@@ -4,10 +4,7 @@ import storage from '../lib/storage';
 import { hasInited } from '../core/initStudio';
 import { unilog } from '@gloxy/unilog';
 
-export {
-  initCLI,
-  initCLIOrWarning
-}
+export { initCLI, initCLIOrWarning };
 
 function initCLI() {
   try {

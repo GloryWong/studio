@@ -20,19 +20,16 @@ function readPackageJson(keys?: string | string[]): any {
 
     if (Array.isArray(keys)) {
       const obj: { [key: string]: any } = {};
-      keys.forEach(key => {
+      keys.forEach((key) => {
         obj[key] = packageJson[key];
       });
       return obj;
     }
-    
+
     return void 0;
   } catch (error) {
     throw `readPackageJson failed: ${error}`;
   }
 }
 
-export {
-  isNumeric,
-  readPackageJson
-};
+export { isNumeric, readPackageJson };

@@ -1,3 +1,1 @@
-type SettingProp =
-  'description' |
-  'locked';
+type SettingProp = 'description' | 'locked';

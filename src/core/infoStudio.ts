@@ -1,10 +1,7 @@
 import conf from '../lib/conf';
 import { getDemoCount } from './demoIndex';
 
-export {
-  getInfo,
-  setInfo
-};
+export { getInfo, setInfo };
 
 function getInfo() {
   const configuration = conf.store;
@@ -13,7 +10,7 @@ function getInfo() {
     location: configuration.root,
     description: configuration.description,
     demoCount: getDemoCount(),
-    locked: configuration.locked || false
+    locked: configuration.locked || false,
   };
 }
 

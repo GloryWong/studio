@@ -15,9 +15,15 @@ program
   .description(cliDescription)
   .usage(cliUsage)
   .arguments('[demoSelector]')
-  .command('init [path]', 'Init a studio', { executableFile: path.join(__dirname, 'command/init.js') })
-  .command('archive', 'Archive existing studio', { executableFile: path.join(__dirname, 'command/archive.js')})
-  .command('info', 'Display studio information', { executableFile: path.join(__dirname, 'command/info.js')})
+  .command('init [path]', 'Init a studio', {
+    executableFile: path.join(__dirname, 'command/init.js'),
+  })
+  .command('archive', 'Archive existing studio', {
+    executableFile: path.join(__dirname, 'command/archive.js'),
+  })
+  .command('info', 'Display studio information', {
+    executableFile: path.join(__dirname, 'command/info.js'),
+  })
   .option('-l, --list', 'list all demos')
   .option('-c, --create <name>', 'create a demo')
   .option('--tag <tags...>', 'use tags')

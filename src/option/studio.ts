@@ -11,6 +11,4 @@ function lockStudio(lock: boolean) {
   }
 }
 
-export {
-  lockStudio
-}
+export { lockStudio };

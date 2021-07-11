@@ -18,7 +18,9 @@ new Command()
       }
 
       if (getInfo().locked) {
-        unilog.warn(`Studio is ${chalk.yellow.bold('locked')} and cannot be archived.`);
+        unilog.warn(
+          `Studio is ${chalk.yellow.bold('locked')} and cannot be archived.`
+        );
         return;
       }
 
@@ -26,7 +28,9 @@ new Command()
       const { question }: { question: boolean } = await prompt({
         type: 'confirm',
         name: 'question',
-        message: `Are you sure to archive Studio ${chalk.bold.yellow(studioName)}?`
+        message: `Are you sure to archive Studio ${chalk.bold.yellow(
+          studioName
+        )}?`,
       });
 
       if (!question) {
@@ -36,15 +40,15 @@ new Command()
       const { studioName: _studioName }: { studioName: string } = await prompt({
         type: 'input',
         name: 'studioName',
-        message: `Please confirm the Studio name:`
+        message: `Please confirm the Studio name:`,
       });
 
       if (_studioName.trim() !== studioName) {
-        unilog.fail('Studio name not matched. Archive failed.')
+        unilog.fail('Studio name not matched. Archive failed.');
         return;
       }
 
-      const { archiveName }: { archiveName: string} = await prompt({
+      const { archiveName }: { archiveName: string } = await prompt({
         type: 'input',
         name: 'archiveName',
         message: `Give an archive name for this Studio:`,
@@ -53,7 +57,7 @@ new Command()
           const { name } = path.parse(root);
 
           return name;
-        }
+        },
       });
 
       await archive(archiveName);
