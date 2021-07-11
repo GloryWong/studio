@@ -1,7 +1,7 @@
-import Conf from 'conf'
+import Conf from 'conf';
 
 const conf: any = new Conf({
-  configName: 'gstudio-test',
-})
+  configName: process.env.CONFIG_NAME
+});
 
-export default conf
+export default conf;

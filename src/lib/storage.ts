@@ -1,40 +1,65 @@
-import {LocalStorage} from 'node-localstorage'
+import { LocalStorage } from 'node-localstorage';
+import conf from './conf';
 
 class Storage {
   #ls: any = null;
 
   init(storagePath: string) {
-    this.#ls = new LocalStorage(storagePath)
+    this.#ls = new LocalStorage(storagePath);
   }
 
   add(key: string, value: any) {
-    if (this.#ls.getItem(key)) {
-      throw new Error(`${key} already exists`)
-    } else {
-      this.#ls.setItem(key, this.str(value))
+    try {
+      if (!this.#ls.getItem(key)) {
+        this.#ls.setItem(key, this.str(value));
+      } else {
+        throw `${key} already exists`;
+      }
+    } catch (error) {
+      throw `add failed: ${error}`;
     }
   }
 
   set(key: string, value: any) {
-    this.#ls.setItem(key, this.str(value))
+    try {
+      this.#ls.setItem(key, this.str(value));
+    } catch (error) {
+      throw `set failed: ${error}`;
+    }
   }
 
   remove(key: string) {
-    this.#ls.removeItem(key)
+    try {
+      this.#ls.removeItem(key);
+    } catch (error) {
+      throw `remove failed: ${error}`;
+    }
   }
 
   get(key: string, defaultValue: string) {
-    return this.par(this.#ls.getItem(key) || defaultValue)
+    try {
+      return this.par(this.#ls.getItem(key) || defaultValue);
+    } catch (error) {
+      throw `get failed: ${error}`;
+    }
   }
 
   protected str(value: any): string {
-    return JSON.stringify(value)
+    try {
+      return JSON.stringify(value);
+    } catch (error) {
+      throw `str failed: ${error}`;
+    }
   }
 
   protected par(value: string): any {
-    return JSON.parse(value)
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      throw `par failed: ${error}`;
+    }
   }
 }
 
-const storage = new Storage()
-export default storage
+const storage = new Storage();
+export default storage;
