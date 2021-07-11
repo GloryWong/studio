@@ -1,5 +1,4 @@
 import {archive} from '../core/studio-archive'
-import {initCLIOrWarning} from '../helper/init'
 import {prompt} from 'inquirer'
 import PATH from '../lib/path'
 import path from 'path'
@@ -55,10 +54,6 @@ export default class Archive extends Command {
 
   async archiveStudio() {
     try {
-      if (!initCLIOrWarning()) {
-        return
-      }
-
       if (getInfo().locked) {
         this.warn(`Studio is ${chalk.yellow.bold('locked')} and cannot be archived.`)
         return

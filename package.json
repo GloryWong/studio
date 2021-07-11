@@ -51,7 +51,10 @@
     "bin": "gs",
     "plugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "hooks": {
+      "init": "./lib/hooks/init"
+    }
   },
   "repository": "GloryWong/studio",
   "scripts": {

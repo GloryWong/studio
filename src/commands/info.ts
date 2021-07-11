@@ -1,4 +1,3 @@
-import {initCLIOrWarning} from '../helper/init'
 import {unilog} from '@gloxy/unilog'
 // import {getInfo} from '../core/studio-info'
 // import boxen from 'boxen'
@@ -9,9 +8,6 @@ import {Command} from '@oclif/command'
 export default class InfoCommand extends Command {
   async run() {
     try {
-      if (!initCLIOrWarning()) {
-        return
-      }
 
       // const {location, name, description, demoCount, locked} = getInfo()
       // const bigTitle = cfonts.render('GDemo CLI', {

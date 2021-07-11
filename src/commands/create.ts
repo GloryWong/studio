@@ -25,7 +25,7 @@ export default class Create extends Command {
         openDemo(id)
       }
     } catch (error) {
-      this.error('Create demo failed:', error)
+      this.error('Create demo failed:' + error)
     }
   }
 }
