@@ -1,24 +1,66 @@
 import {archive} from '../core/studio-archive'
 import {initCLIOrWarning} from '../helper/init'
-import {unilog} from '@gloxy/unilog'
 import {prompt} from 'inquirer'
 import PATH from '../lib/path'
 import path from 'path'
 import conf from '../lib/conf'
 import chalk from 'chalk'
 import {getInfo} from '../core/studio-info'
-import {Command} from '@oclif/command'
+import Command, {flags} from '@oclif/command'
+import {archiveDemo} from '../core/proj'
+import * as index from '../storage'
 
 export default class Archive extends Command {
+  static flags = {
+    studio: flags.boolean({
+      description: 'Archive the studio',
+      default: false,
+    }),
+  }
+
   async run() {
-    unilog('Archive Studio')
+    const {flags} = this.parse(Archive)
+    if (flags.studio) {
+      this.archiveStudio()
+    } else {
+      this.warn('not implemented yet')
+      // TODO: archive proj
+      // this.archiveProj('')
+    }
+  }
+
+  async archiveProj(id: string) {
+    try {
+      const demoIndexItem = index.get(id)
+      if (!demoIndexItem) {
+        this.error('The demo does not exist')
+      }
+
+      const {name: demoName} = demoIndexItem
+
+      const {question}: { question: boolean } = await prompt({
+        type: 'confirm',
+        name: 'question',
+        message: `Are you sure to archive demo '${demoName}'?`,
+      })
+
+      if (question) {
+        await archiveDemo(id)
+        this.log(`demo '${demoName}' archived`)
+      }
+    } catch (error) {
+      this.error(`archiveDemo failed: ${error}`, {exit: 1})
+    }
+  }
+
+  async archiveStudio() {
     try {
       if (!initCLIOrWarning()) {
         return
       }
 
       if (getInfo().locked) {
-        unilog.warn(`Studio is ${chalk.yellow.bold('locked')} and cannot be archived.`)
+        this.warn(`Studio is ${chalk.yellow.bold('locked')} and cannot be archived.`)
         return
       }
 
@@ -40,8 +82,7 @@ export default class Archive extends Command {
       })
 
       if (_studioName.trim() !== studioName) {
-        unilog.fail('Studio name not matched. Archive failed.')
-        return
+        this.error('Studio name not matched. Archive failed.', {exit: 1})
       }
 
       const {archiveName}: { archiveName: string} = await prompt({
@@ -57,9 +98,9 @@ export default class Archive extends Command {
       })
 
       await archive(archiveName)
-      unilog.succeed(`Studio ${chalk.bold.yellow(studioName)} archived`)
+      this.log(`Studio ${chalk.bold.yellow(studioName)} archived`)
     } catch (error) {
-      unilog.fail('Archive failed:', error)
+      this.error('Archive failed:', error)
     }
   }
 }
