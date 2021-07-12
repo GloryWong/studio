@@ -1,4 +1,4 @@
 import * as studioInit from './core/studio-init';
-import * as prjIndex from './core/prj-index';
+import * as prjList from './core/prj-list';
 
-export { studioInit, prjIndex };
+export { studioInit, prjList };

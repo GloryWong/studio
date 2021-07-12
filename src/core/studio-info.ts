@@ -1,5 +1,5 @@
 import conf from '../lib/conf';
-import { getPrjCount } from './prj-index';
+import { getPrjCount } from './prj-list';
 
 export { getInfo, setInfo };
 

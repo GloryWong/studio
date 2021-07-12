@@ -1,2 +1,2 @@
-type PrjIndexItem = { id: string; name: string; code: number; tags?: PrjTag };
-type PrjIndex = Array<PrjIndexItem>;
+type PrjListItem = { id: string; name: string; code: number; tags?: PrjTag };
+type PrjList = Array<PrjListItem>;

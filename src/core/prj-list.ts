@@ -1,16 +1,16 @@
 import Fuse from 'fuse.js';
-import * as index from '../storage/index';
+import * as index from '../storage/prj-index';
 
-function getPrjIndex(): PrjIndex {
+function getPrjList(): PrjList {
   try {
     const indexAll = index.getAll();
-    const prjIndex: PrjIndex = indexAll.map(({ name, id }, i) => ({
+    const prjList: PrjList = indexAll.map(({ name, id }, i) => ({
       id,
       name,
       code: i, // init code
     }));
 
-    return prjIndex;
+    return prjList;
   } catch (error) {
     throw new Error(`get prj list failed: ${error}`);
   }
@@ -25,10 +25,10 @@ function getPrjCount(): number {
   }
 }
 
-function searchPrjIndex(str: string): PrjIndex {
+function searchPrjList(str: string): PrjList {
   try {
-    const prjIndex = getPrjIndex();
-    const fuse = new Fuse(prjIndex, {
+    const prjList = getPrjList();
+    const fuse = new Fuse(prjList, {
       includeScore: true,
       keys: ['name'],
     });
@@ -40,8 +40,8 @@ function searchPrjIndex(str: string): PrjIndex {
       code: i, // regenerate code for search result
     }));
   } catch (error) {
-    throw new Error(`searchPrjIndex failed: ${error}`);
+    throw new Error(`searchPrjList failed: ${error}`);
   }
 }
 
-export { getPrjIndex, searchPrjIndex, getPrjCount };
+export { getPrjList, searchPrjList, getPrjCount };

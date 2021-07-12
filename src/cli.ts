@@ -6,7 +6,11 @@ import { unilog } from '@gloxy/unilog';
 import { initCLIOrWarning } from './command-helper/init';
 import { listAllPrjs, searchAndChoosePrj } from './option/prj-list';
 import { createPrj } from './option/prj';
-import { cliVersion, cliDescription, cliUsage } from './command-helper/cliInfo';
+import {
+  cliVersion,
+  cliDescription,
+  cliUsage,
+} from './command-helper/cli-info';
 import { lockStudio } from './option/studio';
 
 const program = new Command();

@@ -3,7 +3,7 @@ import mkdirp from 'mkdirp';
 import path from 'path';
 import Listr from 'listr';
 import storage from '../lib/storage';
-import * as index from '../storage/index';
+import * as index from '../storage/prj-index';
 import PATH from '../lib/path';
 import { archive } from '../command-helper/archive';
 

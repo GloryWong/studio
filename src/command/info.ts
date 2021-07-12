@@ -3,7 +3,7 @@ import { unilog } from '@gloxy/unilog';
 import boxen from 'boxen';
 import chalk from 'chalk';
 import cfonts from 'cfonts';
-import { cliVersion } from '../command-helper/cliInfo';
+import { cliVersion } from '../command-helper/cli-info';
 import { getInfo } from '../core/studio-info';
 import { initCLIOrWarning } from '../command-helper/init';
 

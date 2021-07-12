@@ -4,19 +4,19 @@ import execa from 'execa';
 import { prompt } from 'inquirer';
 import chalk from 'chalk';
 import PATH from '../lib/path';
-import { get } from '../storage/index';
+import { get } from '../storage/prj-index';
 import * as prj from '../core/prj';
-import * as index from '../storage/index';
+import * as index from '../storage/prj-index';
 
 function openPrj(id: string, reuseWindow = false): void {
   try {
-    const prjIndexItem = get(id);
-    if (!prjIndexItem) {
+    const prjListItem = get(id);
+    if (!prjListItem) {
       unilog.fail(`The prj does not exist`);
       return;
     }
 
-    const { name } = prjIndexItem;
+    const { name } = prjListItem;
     const prjPath = path.join(PATH.ROOT, name);
     execa('code', [prjPath, reuseWindow ? '-r' : '']);
     unilog.succeed(
@@ -51,13 +51,13 @@ async function createPrj(name: string): Promise<void> {
 
 async function archivePrj(id: string): Promise<void> {
   try {
-    const prjIndexItem = index.get(id);
-    if (!prjIndexItem) {
+    const prjListItem = index.get(id);
+    if (!prjListItem) {
       unilog.fail(`The prj does not exist`);
       return;
     }
 
-    const { name: prjName } = prjIndexItem;
+    const { name: prjName } = prjListItem;
 
     const { question }: { question: boolean } = await prompt({
       type: 'confirm',

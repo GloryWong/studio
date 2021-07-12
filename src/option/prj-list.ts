@@ -5,9 +5,9 @@ import chalk from 'chalk';
 import ora from 'ora';
 import { unilog } from '@gloxy/unilog';
 import * as prj from './prj';
-import { getPrjIndex, searchPrjIndex } from '../core/prj-index';
+import { getPrjList, searchPrjList } from '../core/prj-list';
 
-function listPrjs(list: PrjIndex): boolean {
+function listPrjs(list: PrjList): boolean {
   try {
     if (!list.length) {
       return false;
@@ -33,7 +33,7 @@ function listPrjs(list: PrjIndex): boolean {
   }
 }
 
-async function choosePrj(prjIndex: PrjIndex): Promise<boolean> {
+async function choosePrj(prjList: PrjList): Promise<boolean> {
   try {
     const { input } = await prompt({
       type: 'input',
@@ -52,12 +52,12 @@ async function choosePrj(prjIndex: PrjIndex): Promise<boolean> {
     const archivePrj = Boolean(matches[2]) || Boolean(matches[5]);
     const prjCode = matches[3];
 
-    const prjIndexItem = prjIndex.find(({ code }) => Number(prjCode) === code);
-    if (!prjIndexItem) {
+    const prjListItem = prjList.find(({ code }) => Number(prjCode) === code);
+    if (!prjListItem) {
       return false;
     }
 
-    const { id: prjId } = prjIndexItem;
+    const { id: prjId } = prjListItem;
     // archive prj
     if (archivePrj) {
       prj.archivePrj(prjId);
@@ -74,26 +74,26 @@ async function choosePrj(prjIndex: PrjIndex): Promise<boolean> {
 function listAllPrjs(): void {
   const spinner = ora(`Loading all prjs`);
   try {
-    const prjIndex = getPrjIndex();
-    spinner.succeed(`${chalk.bold(prjIndex.length)} prj(s) found`);
-    listPrjs(prjIndex);
+    const prjList = getPrjList();
+    spinner.succeed(`${chalk.bold(prjList.length)} prj(s) found`);
+    listPrjs(prjList);
   } catch (error) {
     spinner.fail('Failed to list all prjs');
     unilog.mid('').fail(error);
   }
 }
 
-async function searchPrjs(str: string): Promise<PrjIndex> {
+async function searchPrjs(str: string): Promise<PrjList> {
   const spinner = ora(`Searching ${chalk.bold.yellow(str)}`).start();
   try {
-    const prjIndex = searchPrjIndex(str);
+    const prjList = searchPrjList(str);
     spinner.succeed(
-      `${chalk.bold(prjIndex.length)} prj(s) found matched ${chalk.bold.yellow(
+      `${chalk.bold(prjList.length)} prj(s) found matched ${chalk.bold.yellow(
         str
       )}`
     );
 
-    if (prjIndex.length === 0) {
+    if (prjList.length === 0) {
       const { question } = await prompt({
         type: 'confirm',
         name: 'question',
@@ -103,9 +103,9 @@ async function searchPrjs(str: string): Promise<PrjIndex> {
         prj.createPrj(str);
       }
     } else {
-      listPrjs(prjIndex);
+      listPrjs(prjList);
     }
-    return prjIndex;
+    return prjList;
   } catch (error) {
     spinner.fail(`Failed to find prjs matched ${chalk.bold.yellow(str)}`);
     unilog.mid('').fail(error);
@@ -115,12 +115,12 @@ async function searchPrjs(str: string): Promise<PrjIndex> {
 
 async function searchAndChoosePrj(str: string): Promise<void> {
   try {
-    const prjIndex = await searchPrjs(str);
-    if (!prjIndex.length) {
+    const prjList = await searchPrjs(str);
+    if (!prjList.length) {
       return;
     }
 
-    if (!(await choosePrj(prjIndex))) {
+    if (!(await choosePrj(prjList))) {
       searchAndChoosePrj(str);
     }
   } catch (error) {
