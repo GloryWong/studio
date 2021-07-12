@@ -3,8 +3,7 @@ import { init } from '../core/initStudio';
 
 new Command()
   .arguments('[path]')
-  .action(function (studioPath: string) {
+  .action(function action(studioPath: string) {
     init(studioPath);
-    return;
   })
   .parse();

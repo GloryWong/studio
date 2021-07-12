@@ -17,6 +17,22 @@ export {
   existsByName,
 };
 
+function getAll(): Index {
+  try {
+    return storage.get(INDEX_NAME, JSON.stringify(INDEX_DEFAULT_VALUE));
+  } catch (error) {
+    throw new Error(`getAll failed: ${error}`);
+  }
+}
+
+function setAll(value: Index) {
+  try {
+    storage.set(INDEX_NAME, value);
+  } catch (error) {
+    throw new Error(`setAll failed: ${error}`);
+  }
+}
+
 function add(id: string, value: any): void {
   try {
     const index: Index = getAll();
@@ -27,7 +43,7 @@ function add(id: string, value: any): void {
     index.push(item);
     setAll(index);
   } catch (error) {
-    throw `addToIndex failed: ${error}`;
+    throw new Error(`addToIndex failed: ${error}`);
   }
 }
 
@@ -36,7 +52,7 @@ function get(id: string): IndexItem | undefined {
     const index: Index = getAll();
     return index.find((item: IndexItem) => item.id === id);
   } catch (error) {
-    throw `get failed: ${error}`;
+    throw new Error(`get failed: ${error}`);
   }
 }
 
@@ -47,23 +63,7 @@ function remove(id: string): void {
     index.splice(i, 1);
     setAll(index);
   } catch (error) {
-    throw `removeFromIndex failed: ${error}`;
-  }
-}
-
-function getAll(): Index {
-  try {
-    return storage.get(INDEX_NAME, JSON.stringify(INDEX_DEFAULT_VALUE));
-  } catch (error) {
-    throw `getAll failed: ${error}`;
-  }
-}
-
-function setAll(value: Index) {
-  try {
-    storage.set(INDEX_NAME, value);
-  } catch (error) {
-    throw `setAll failed: ${error}`;
+    throw new Error(`removeFromIndex failed: ${error}`);
   }
 }
 
@@ -72,7 +72,7 @@ function existsByName(name: string): boolean {
     const index = getAll();
     return !!index.find(({ name: _name }) => _name === name);
   } catch (error) {
-    throw `exists failed: ${error}`;
+    throw new Error(`exists failed: ${error}`);
   }
 }
 
@@ -81,7 +81,7 @@ function getByCode(code: number): IndexItem {
     const index: Index = getAll();
     return index[code];
   } catch (error) {
-    throw `getByCode failed: ${error}`;
+    throw new Error(`getByCode failed: ${error}`);
   }
 }
 
@@ -91,7 +91,7 @@ function removeByCode(code: number): void {
     index.splice(code, 1);
     setAll(index);
   } catch (error) {
-    throw `removeByCode failed: ${error}`;
+    throw new Error(`removeByCode failed: ${error}`);
   }
 }
 
@@ -99,6 +99,6 @@ function getIdByCode(code: number): string {
   try {
     return getByCode(code)?.id;
   } catch (error) {
-    throw `getIdByCode failed: ${error}`;
+    throw new Error(`getIdByCode failed: ${error}`);
   }
 }

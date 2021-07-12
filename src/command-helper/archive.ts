@@ -20,8 +20,9 @@ async function archive(
       recursive: true,
     });
   } catch (error) {
-    throw `archive failed: ${error}`;
+    throw new Error(`archive failed: ${error}`);
   }
 }
 
+export default archive;
 export { archive };

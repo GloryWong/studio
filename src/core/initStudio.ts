@@ -1,10 +1,9 @@
-import copy from 'recursive-copy';
 import { unilog } from '@gloxy/unilog';
-import conf from '../lib/conf';
 import path from 'path';
-import PATH from '../lib/path';
 import Listr from 'listr';
 import mkdirp from 'mkdirp';
+import PATH from '../lib/path';
+import conf from '../lib/conf';
 
 export { init, hasInited };
 

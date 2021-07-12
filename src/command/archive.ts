@@ -1,16 +1,16 @@
 import { Command } from 'commander';
-import { archive } from '../core/archiveStudio';
-import { initCLIOrWarning } from '../command-helper/init';
 import { unilog } from '@gloxy/unilog';
 import { prompt } from 'inquirer';
-import PATH from '../lib/path';
 import path from 'path';
-import conf from '../lib/conf';
 import chalk from 'chalk';
+import { archive } from '../core/studio-archive';
+import { initCLIOrWarning } from '../command-helper/init';
+import PATH from '../lib/path';
+import conf from '../lib/conf';
 import { getInfo } from '../core/infoStudio';
 
 new Command()
-  .action(async function () {
+  .action(async function action() {
     unilog('Archive Studio');
     try {
       if (!initCLIOrWarning()) {
@@ -37,13 +37,13 @@ new Command()
         return;
       }
 
-      const { studioName: _studioName }: { studioName: string } = await prompt({
+      const { studioName: sn }: { studioName: string } = await prompt({
         type: 'input',
         name: 'studioName',
         message: `Please confirm the Studio name:`,
       });
 
-      if (_studioName.trim() !== studioName) {
+      if (sn.trim() !== studioName) {
         unilog.fail('Studio name not matched. Archive failed.');
         return;
       }

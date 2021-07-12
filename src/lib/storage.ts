@@ -1,5 +1,4 @@
 import { LocalStorage } from 'node-localstorage';
-import conf from './conf';
 
 class Storage {
   #ls: any = null;
@@ -11,20 +10,20 @@ class Storage {
   add(key: string, value: any) {
     try {
       if (!this.#ls.getItem(key)) {
-        this.#ls.setItem(key, this.str(value));
+        this.#ls.setItem(key, Storage.str(value));
       } else {
-        throw `${key} already exists`;
+        throw new Error(`${key} already exists`);
       }
     } catch (error) {
-      throw `add failed: ${error}`;
+      throw new Error(`add failed: ${error}`);
     }
   }
 
   set(key: string, value: any) {
     try {
-      this.#ls.setItem(key, this.str(value));
+      this.#ls.setItem(key, Storage.str(value));
     } catch (error) {
-      throw `set failed: ${error}`;
+      throw new Error(`set failed: ${error}`);
     }
   }
 
@@ -32,31 +31,31 @@ class Storage {
     try {
       this.#ls.removeItem(key);
     } catch (error) {
-      throw `remove failed: ${error}`;
+      throw new Error(`remove failed: ${error}`);
     }
   }
 
   get(key: string, defaultValue: string) {
     try {
-      return this.par(this.#ls.getItem(key) || defaultValue);
+      return Storage.par(this.#ls.getItem(key) || defaultValue);
     } catch (error) {
-      throw `get failed: ${error}`;
+      throw new Error(`get failed: ${error}`);
     }
   }
 
-  protected str(value: any): string {
+  static str(value: any): string {
     try {
       return JSON.stringify(value);
     } catch (error) {
-      throw `str failed: ${error}`;
+      throw new Error(`str failed: ${error}`);
     }
   }
 
-  protected par(value: string): any {
+  static par(value: string): any {
     try {
       return JSON.parse(value);
     } catch (error) {
-      throw `par failed: ${error}`;
+      throw new Error(`par failed: ${error}`);
     }
   }
 }

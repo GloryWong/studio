@@ -1,18 +1,18 @@
-import storage from '../lib/storage';
-import * as index from '../storage/index';
 import { uid } from 'uid/secure';
 import mkdirp from 'mkdirp';
-import PATH from '../lib/path';
 import path from 'path';
-import { archive } from '../command-helper/archive';
 import Listr from 'listr';
+import storage from '../lib/storage';
+import * as index from '../storage/index';
+import PATH from '../lib/path';
+import { archive } from '../command-helper/archive';
 
 // demo name should be unique in a Studio
 function createDemo(name: string): string {
   const id = uid();
   try {
     if (index.existsByName(name)) {
-      throw `same name demo '${name}' already exists`;
+      throw new Error(`same name demo '${name}' already exists`);
     }
 
     const demo: Demo = {
@@ -30,11 +30,11 @@ function createDemo(name: string): string {
 
     return id;
   } catch (error) {
-    throw `createDemo failed: ${error}`;
+    throw new Error(`createDemo failed: ${error}`);
   }
 }
 
-function archiveDemo(id: string): Promise<any> {
+function archiveDemo(id: string): Promise<void> {
   try {
     const demo: Demo = storage.get(id, '');
     const { name: demoName } = demo;
@@ -66,7 +66,7 @@ function archiveDemo(id: string): Promise<any> {
 
     return tasks.run();
   } catch (error) {
-    throw `archiveDemo failed: ${error}`;
+    throw new Error(`archiveDemo failed: ${error}`);
   }
 }
 

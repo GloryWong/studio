@@ -1,7 +1,7 @@
-import { setInfo } from '../core/infoStudio';
 import { unilog } from '@gloxy/unilog';
+import { setInfo } from '../core/infoStudio';
 
-function lockStudio(lock: boolean) {
+function lockStudio(lock: boolean): void {
   unilog('Lock Studio');
   try {
     setInfo('locked', lock);
@@ -11,4 +11,5 @@ function lockStudio(lock: boolean) {
   }
 }
 
+export default lockStudio;
 export { lockStudio };

@@ -1,12 +1,12 @@
 import './env';
 import { Command } from 'commander';
 import _ from 'lodash';
-import { initCLIOrWarning } from './command-helper/init';
 import path from 'path';
+import { unilog } from '@gloxy/unilog';
+import { initCLIOrWarning } from './command-helper/init';
 import { listAllDemos, searchAndChooseDemo } from './option/demoList';
 import { createDemo } from './option/demo';
 import { cliVersion, cliDescription, cliUsage } from './command-helper/cliInfo';
-import { unilog } from '@gloxy/unilog';
 import { lockStudio } from './option/studio';
 
 const program = new Command();
@@ -29,7 +29,7 @@ program
   .option('--tag <tags...>', 'use tags')
   .option('--lock', 'lock studio')
   .option('--no-lock', 'unlock studio')
-  .action(async function (demoSelector: string, options: any) {
+  .action(async function action(demoSelector: string, options) {
     try {
       if (!demoSelector && _.isEmpty(options)) {
         program.help();

@@ -1,14 +1,14 @@
 import { Command } from 'commander';
-import { initCLIOrWarning } from '../command-helper/init';
 import { unilog } from '@gloxy/unilog';
-import { getInfo } from '../core/infoStudio';
 import boxen from 'boxen';
-import { cliVersion } from '../command-helper/cliInfo';
 import chalk from 'chalk';
 import cfonts from 'cfonts';
+import { cliVersion } from '../command-helper/cliInfo';
+import { getInfo } from '../core/infoStudio';
+import { initCLIOrWarning } from '../command-helper/init';
 
 new Command()
-  .action(function () {
+  .action(function action() {
     try {
       if (!initCLIOrWarning()) {
         return;
@@ -28,7 +28,7 @@ new Command()
 
       const info = `${bigTitle.string}
         ${chalk.bold.green('GDemo CLI')} ${chalk.bold.yellow(cliVersion)}${
-        process.env.NODE_ENV === 'test' ? ' ' + chalk.bgMagenta(' test ') : ''
+        process.env.NODE_ENV === 'test' ? ` ${chalk.bgMagenta(' test ')}` : ''
       }
         ${chalk.white('Author: Wang Zhaohui (https://zhaozhao.today)')}
 

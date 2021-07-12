@@ -1,12 +1,13 @@
-import { getDemoIndex, searchDemoIndex } from '../core/demoIndex';
 import { prompt } from 'inquirer';
-import * as demo from './demo';
 import boxen from 'boxen';
 import columns from 'cli-columns';
 import chalk from 'chalk';
 import ora from 'ora';
+import { unilog } from '@gloxy/unilog';
+import * as demo from './demo';
+import { getDemoIndex, searchDemoIndex } from '../core/demoIndex';
 
-function __listDemos(list: DemoIndex): boolean {
+function listDemos(list: DemoIndex): boolean {
   try {
     if (!list.length) {
       return false;
@@ -18,6 +19,7 @@ function __listDemos(list: DemoIndex): boolean {
       }
     );
 
+    // eslint-disable-next-line no-console
     console.log(
       boxen(columns(formatedList), {
         padding: 1,
@@ -27,11 +29,11 @@ function __listDemos(list: DemoIndex): boolean {
 
     return true;
   } catch (error) {
-    throw `__listDemos failed: ${error}`;
+    throw new Error(`listDemos failed: ${error}`);
   }
 }
 
-async function __chooseDemo(demoIndex: DemoIndex): Promise<boolean> {
+async function chooseDemo(demoIndex: DemoIndex): Promise<boolean> {
   try {
     const { input } = await prompt({
       type: 'input',
@@ -67,19 +69,19 @@ async function __chooseDemo(demoIndex: DemoIndex): Promise<boolean> {
     demo.openDemo(demoId, reuseWindow);
     return true;
   } catch (error) {
-    throw `__chooseDemo failed: ${error}`;
+    throw new Error(`chooseDemo failed: ${error}`);
   }
 }
 
-function listAllDemos() {
+function listAllDemos(): void {
   const spinner = ora(`Loading all demos`);
   try {
     const demoIndex = getDemoIndex();
     spinner.succeed(`${chalk.bold(demoIndex.length)} demo(s) found`);
-    __listDemos(demoIndex);
+    listDemos(demoIndex);
   } catch (error) {
     spinner.fail('Failed to list all demos');
-    console.error(error);
+    unilog.mid('').fail(error);
   }
 }
 
@@ -103,28 +105,28 @@ async function searchDemos(str: string): Promise<DemoIndex> {
         demo.createDemo(str);
       }
     } else {
-      __listDemos(demoIndex);
+      listDemos(demoIndex);
     }
     return demoIndex;
   } catch (error) {
     spinner.fail(`Failed to find demos matched ${chalk.bold.yellow(str)}`);
-    console.error(error);
+    unilog.mid('').fail(error);
     return [];
   }
 }
 
-async function searchAndChooseDemo(str: string) {
+async function searchAndChooseDemo(str: string): Promise<void> {
   try {
     const demoIndex = await searchDemos(str);
     if (!demoIndex.length) {
       return;
     }
 
-    if (!(await __chooseDemo(demoIndex))) {
+    if (!(await chooseDemo(demoIndex))) {
       searchAndChooseDemo(str);
     }
   } catch (error) {
-    console.error('search and choose demo failed:', error);
+    unilog.mid('').fail('search and choose demo failed:', error);
   }
 }
 

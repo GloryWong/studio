@@ -1,5 +1,5 @@
-import * as index from '../storage/index';
 import Fuse from 'fuse.js';
+import * as index from '../storage/index';
 
 function getDemoIndex(): DemoIndex {
   try {
@@ -12,7 +12,7 @@ function getDemoIndex(): DemoIndex {
 
     return demoIndex;
   } catch (error) {
-    throw `get demo list failed: ${error}`;
+    throw new Error(`get demo list failed: ${error}`);
   }
 }
 
@@ -21,7 +21,7 @@ function getDemoCount(): number {
     const indexAll = index.getAll();
     return indexAll.length;
   } catch (error) {
-    throw `get demo count failed: ${error}`;
+    throw new Error(`get demo count failed: ${error}`);
   }
 }
 
@@ -40,7 +40,7 @@ function searchDemoIndex(str: string): DemoIndex {
       code: i, // regenerate code for search result
     }));
   } catch (error) {
-    throw `searchDemoIndex failed: ${error}`;
+    throw new Error(`searchDemoIndex failed: ${error}`);
   }
 }
 

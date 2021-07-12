@@ -26,9 +26,9 @@ function readPackageJson(keys?: string | string[]): any {
       return obj;
     }
 
-    return void 0;
+    return undefined;
   } catch (error) {
-    throw `readPackageJson failed: ${error}`;
+    throw new Error(`readPackageJson failed: ${error}`);
   }
 }
 

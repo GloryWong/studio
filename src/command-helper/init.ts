@@ -1,8 +1,8 @@
+import { unilog } from '@gloxy/unilog';
 import PATH from '../lib/path';
 import conf from '../lib/conf';
 import storage from '../lib/storage';
 import { hasInited } from '../core/initStudio';
-import { unilog } from '@gloxy/unilog';
 
 export { initCLI, initCLIOrWarning };
 
@@ -14,7 +14,7 @@ function initCLI() {
     // init storage
     storage.init(PATH.STORAGE);
   } catch (error) {
-    throw `initCLI failed: ${error}`;
+    throw new Error(`initCLI failed: ${error}`);
   }
 }
 
@@ -23,11 +23,10 @@ function initCLIOrWarning(): boolean {
     if (hasInited()) {
       initCLI();
       return true;
-    } else {
-      unilog.warn('Studio does not exist, please init first.');
-      return false;
     }
+    unilog.warn('Studio does not exist, please init first.');
+    return false;
   } catch (error) {
-    throw `initCLIOrWarning failed: ${error}`;
+    throw new Error(`initCLIOrWarning failed: ${error}`);
   }
 }

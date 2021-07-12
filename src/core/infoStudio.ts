@@ -3,7 +3,7 @@ import { getDemoCount } from './demoIndex';
 
 export { getInfo, setInfo };
 
-function getInfo() {
+function getInfo(): any {
   const configuration = conf.store;
   return {
     name: configuration.name,
