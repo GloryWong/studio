@@ -1,34 +1,34 @@
 import Fuse from 'fuse.js';
 import * as index from '../storage/index';
 
-function getDemoIndex(): DemoIndex {
+function getPrjIndex(): PrjIndex {
   try {
     const indexAll = index.getAll();
-    const demoIndex: DemoIndex = indexAll.map(({ name, id }, i) => ({
+    const prjIndex: PrjIndex = indexAll.map(({ name, id }, i) => ({
       id,
       name,
       code: i, // init code
     }));
 
-    return demoIndex;
+    return prjIndex;
   } catch (error) {
-    throw new Error(`get demo list failed: ${error}`);
+    throw new Error(`get prj list failed: ${error}`);
   }
 }
 
-function getDemoCount(): number {
+function getPrjCount(): number {
   try {
     const indexAll = index.getAll();
     return indexAll.length;
   } catch (error) {
-    throw new Error(`get demo count failed: ${error}`);
+    throw new Error(`get prj count failed: ${error}`);
   }
 }
 
-function searchDemoIndex(str: string): DemoIndex {
+function searchPrjIndex(str: string): PrjIndex {
   try {
-    const demoIndex = getDemoIndex();
-    const fuse = new Fuse(demoIndex, {
+    const prjIndex = getPrjIndex();
+    const fuse = new Fuse(prjIndex, {
       includeScore: true,
       keys: ['name'],
     });
@@ -40,8 +40,8 @@ function searchDemoIndex(str: string): DemoIndex {
       code: i, // regenerate code for search result
     }));
   } catch (error) {
-    throw new Error(`searchDemoIndex failed: ${error}`);
+    throw new Error(`searchPrjIndex failed: ${error}`);
   }
 }
 
-export { getDemoIndex, searchDemoIndex, getDemoCount };
+export { getPrjIndex, searchPrjIndex, getPrjCount };

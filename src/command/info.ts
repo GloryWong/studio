@@ -4,7 +4,7 @@ import boxen from 'boxen';
 import chalk from 'chalk';
 import cfonts from 'cfonts';
 import { cliVersion } from '../command-helper/cliInfo';
-import { getInfo } from '../core/infoStudio';
+import { getInfo } from '../core/studio-info';
 import { initCLIOrWarning } from '../command-helper/init';
 
 new Command()
@@ -14,8 +14,8 @@ new Command()
         return;
       }
 
-      const { location, name, description, demoCount, locked } = getInfo();
-      const bigTitle = cfonts.render('GDemo CLI', {
+      const { location, name, description, prjCount, locked } = getInfo();
+      const bigTitle = cfonts.render('GPrj CLI', {
         font: 'block',
         colors: ['system'], // define all colors
         background: 'transparent', // define the background color, you can also use `backgroundColor` here as key
@@ -27,7 +27,7 @@ new Command()
       });
 
       const info = `${bigTitle.string}
-        ${chalk.bold.green('GDemo CLI')} ${chalk.bold.yellow(cliVersion)}${
+        ${chalk.bold.green('GPrj CLI')} ${chalk.bold.yellow(cliVersion)}${
         process.env.NODE_ENV === 'test' ? ` ${chalk.bgMagenta(' test ')}` : ''
       }
         ${chalk.white('Author: Wang Zhaohui (https://zhaozhao.today)')}
@@ -36,7 +36,7 @@ new Command()
           Name: ${chalk.bold(name)}
           Location: ${location}
           Description: ${description}
-          Demo count: ${demoCount}
+          Prj count: ${prjCount}
           Locked: ${locked}
       `;
       console.log(boxen(info, { padding: 1, borderStyle: 'double' }));

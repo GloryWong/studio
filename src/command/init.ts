@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { init } from '../core/initStudio';
+import { init } from '../core/studio-init';
 
 new Command()
   .arguments('[path]')

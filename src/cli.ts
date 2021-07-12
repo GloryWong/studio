@@ -4,8 +4,8 @@ import _ from 'lodash';
 import path from 'path';
 import { unilog } from '@gloxy/unilog';
 import { initCLIOrWarning } from './command-helper/init';
-import { listAllDemos, searchAndChooseDemo } from './option/demoList';
-import { createDemo } from './option/demo';
+import { listAllPrjs, searchAndChoosePrj } from './option/prj-list';
+import { createPrj } from './option/prj';
 import { cliVersion, cliDescription, cliUsage } from './command-helper/cliInfo';
 import { lockStudio } from './option/studio';
 
@@ -14,7 +14,7 @@ program
   .version(cliVersion)
   .description(cliDescription)
   .usage(cliUsage)
-  .arguments('[demoSelector]')
+  .arguments('[prjSelector]')
   .command('init [path]', 'Init a studio', {
     executableFile: path.join(__dirname, 'command/init.js'),
   })
@@ -24,14 +24,14 @@ program
   .command('info', 'Display studio information', {
     executableFile: path.join(__dirname, 'command/info.js'),
   })
-  .option('-l, --list', 'list all demos')
-  .option('-c, --create <name>', 'create a demo')
+  .option('-l, --list', 'list all prjs')
+  .option('-c, --create <name>', 'create a prj')
   .option('--tag <tags...>', 'use tags')
   .option('--lock', 'lock studio')
   .option('--no-lock', 'unlock studio')
-  .action(async function action(demoSelector: string, options) {
+  .action(async function action(prjSelector: string, options) {
     try {
-      if (!demoSelector && _.isEmpty(options)) {
+      if (!prjSelector && _.isEmpty(options)) {
         program.help();
         return;
       }
@@ -40,20 +40,20 @@ program
         return;
       }
 
-      if (demoSelector) {
-        await searchAndChooseDemo(demoSelector);
+      if (prjSelector) {
+        await searchAndChoosePrj(prjSelector);
         return;
       }
 
       const { list, create, lock } = options;
 
       if (list) {
-        listAllDemos();
+        listAllPrjs();
         return;
       }
 
       if (create) {
-        createDemo(create);
+        createPrj(create);
         return;
       }
 
@@ -62,7 +62,7 @@ program
         return;
       }
     } catch (error) {
-      unilog('Demo CLI').fail(error);
+      unilog('Prj CLI').fail(error);
     }
   })
   .parse();

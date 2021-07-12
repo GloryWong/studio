@@ -7,7 +7,7 @@ import { archive } from '../core/studio-archive';
 import { initCLIOrWarning } from '../command-helper/init';
 import PATH from '../lib/path';
 import conf from '../lib/conf';
-import { getInfo } from '../core/infoStudio';
+import { getInfo } from '../core/studio-info';
 
 new Command()
   .action(async function action() {

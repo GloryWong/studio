@@ -2,7 +2,7 @@ import { unilog } from '@gloxy/unilog';
 import PATH from '../lib/path';
 import conf from '../lib/conf';
 import storage from '../lib/storage';
-import { hasInited } from '../core/initStudio';
+import { hasInited } from '../core/studio-init';
 
 export { initCLI, initCLIOrWarning };
 

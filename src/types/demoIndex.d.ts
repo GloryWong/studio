@@ -1,2 +1,2 @@
-type DemoIndexItem = { id: string; name: string; code: number; tags?: DemoTag };
-type DemoIndex = Array<DemoIndexItem>;
+type PrjIndexItem = { id: string; name: string; code: number; tags?: PrjTag };
+type PrjIndex = Array<PrjIndexItem>;

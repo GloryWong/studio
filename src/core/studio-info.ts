@@ -1,5 +1,5 @@
 import conf from '../lib/conf';
-import { getDemoCount } from './demoIndex';
+import { getPrjCount } from './prj-index';
 
 export { getInfo, setInfo };
 
@@ -9,7 +9,7 @@ function getInfo(): any {
     name: configuration.name,
     location: configuration.root,
     description: configuration.description,
-    demoCount: getDemoCount(),
+    prjCount: getPrjCount(),
     locked: configuration.locked || false,
   };
 }
