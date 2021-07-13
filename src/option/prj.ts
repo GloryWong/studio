@@ -1,31 +1,19 @@
 import { unilog } from '@gloxy/unilog';
-import path from 'path';
-import execa from 'execa';
 import { prompt } from 'inquirer';
 import chalk from 'chalk';
-import PATH from '../lib/path';
-import { get } from '../storage/prj-index';
 import * as prj from '../core/prj';
 import * as index from '../storage/prj-index';
 
 function openPrj(id: string, reuseWindow = false): void {
   try {
-    const prjListItem = get(id);
-    if (!prjListItem) {
-      unilog.fail(`The prj does not exist`);
-      return;
-    }
-
-    const { name } = prjListItem;
-    const prjPath = path.join(PATH.ROOT, name);
-    execa('code', [prjPath, reuseWindow ? '-r' : '']);
+    prj.openPrj(id, reuseWindow);
     unilog.succeed(
-      `Prj '${name}' opened in ${
-        reuseWindow ? 'the last active VSCode window' : 'a new VSCode window'
+      `project opened ${
+        reuseWindow ? 'in last active window' : 'in a new window'
       }`
     );
   } catch (error) {
-    throw new Error(`openPrj failed: ${error}`);
+    unilog.fail('Open project failed:', error);
   }
 }
 

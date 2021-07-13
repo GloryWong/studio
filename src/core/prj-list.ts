@@ -18,8 +18,7 @@ function getPrjList(): PrjList {
 
 function getPrjCount(): number {
   try {
-    const indexAll = index.getAll();
-    return indexAll.length;
+    return index.getAll().length;
   } catch (error) {
     throw new Error(`get prj count failed: ${error}`);
   }
@@ -35,9 +34,9 @@ function searchPrjList(str: string): PrjList {
 
     const result = fuse.search(str);
 
-    return result.map(({ item }: { item: any }, i: number) => ({
+    return result.map(({ item }, i: number) => ({
       ...item,
-      code: i, // regenerate code for search result
+      code: i, // regenerate new code for search result
     }));
   } catch (error) {
     throw new Error(`searchPrjList failed: ${error}`);

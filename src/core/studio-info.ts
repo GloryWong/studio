@@ -14,6 +14,6 @@ function getInfo(): any {
   };
 }
 
-function setInfo(prop: SettingProp, value: any) {
+function setInfo(prop: SettingProp, value: any): void {
   conf.set(prop, value);
 }

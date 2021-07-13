@@ -19,7 +19,7 @@ program
   .description(cliDescription)
   .usage(cliUsage)
   .arguments('[prjSelector]')
-  .command('init [path]', 'Init a studio', {
+  .command('init [path]', 'Init studio', {
     executableFile: path.join(__dirname, 'command/init.js'),
   })
   .command('archive', 'Archive existing studio', {
@@ -28,6 +28,9 @@ program
   .command('info', 'Display studio information', {
     executableFile: path.join(__dirname, 'command/info.js'),
   })
+  // .command('proj', 'Project', {
+  //   executableFile: path.join(__dirname, 'command/proj'),
+  // })
   .option('-l, --list', 'list all prjs')
   .option('-c, --create <name>', 'create a prj')
   .option('--tag <tags...>', 'use tags')

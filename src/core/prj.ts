@@ -2,16 +2,18 @@ import { uid } from 'uid/secure';
 import mkdirp from 'mkdirp';
 import path from 'path';
 import Listr from 'listr';
+import execa from 'execa';
 import storage from '../lib/storage';
-import * as index from '../storage/prj-index';
+import * as prjIndex from '../storage/prj-index';
 import PATH from '../lib/path';
 import { archive } from '../command-helper/archive';
+import conf from '../lib/conf';
 
 // prj name should be unique in a Studio
 function createPrj(name: string): string {
   const id = uid();
   try {
-    if (index.existsByName(name)) {
+    if (prjIndex.existsByName(name)) {
       throw new Error(`same name prj '${name}' already exists`);
     }
 
@@ -21,7 +23,7 @@ function createPrj(name: string): string {
     };
 
     storage.add(id, prj);
-    index.add(id, {
+    prjIndex.add(id, {
       name,
     });
 
@@ -31,6 +33,21 @@ function createPrj(name: string): string {
     return id;
   } catch (error) {
     throw new Error(`createPrj failed: ${error}`);
+  }
+}
+
+function openPrj(id: string, reuseWindow = false): void {
+  try {
+    const prjListItem = prjIndex.get(id);
+    if (!prjListItem) {
+      throw new Error(`The prj does not exist`);
+    }
+
+    const { name } = prjListItem;
+    const prjPath = path.join(PATH.ROOT, name);
+    execa.sync('code', [prjPath, reuseWindow ? '-r' : '']);
+  } catch (error) {
+    throw new Error(`openPrj failed: ${error}`);
   }
 }
 
@@ -49,13 +66,13 @@ function archivePrj(id: string): Promise<void> {
       {
         title: `Remove '${prjName}' from Index`,
         task: () => {
-          index.remove(id);
+          prjIndex.remove(id);
         },
       },
       {
         title: `Move prj folder '${prjName}' to archive`,
         task: () => {
-          const { name: studioName } = path.parse(PATH.ROOT);
+          const studioName = conf.get('name');
           return archive(
             path.join(PATH.ROOT, prjName),
             `${studioName}.${prjName}.${id}`
@@ -70,4 +87,4 @@ function archivePrj(id: string): Promise<void> {
   }
 }
 
-export { createPrj, archivePrj };
+export { createPrj, openPrj, archivePrj };
