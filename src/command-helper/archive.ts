@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import copy from 'recursive-copy';
+import os from 'os';
 
 async function archive(
   source: string,
@@ -10,8 +11,8 @@ async function archive(
   try {
     // move Studio to archive
     const archivedPath = path.join(
-      process.env.HOME!,
-      process.env.STUDIO_ARCHIVE_DIR!,
+      process.env.HOME || os.homedir(),
+      process.env.STUDIO_ARCHIVE_DIR || '',
       subpath,
       destName
     );
