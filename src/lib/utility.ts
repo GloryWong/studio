@@ -6,6 +6,10 @@ function isNumeric(val: string | number): boolean {
   return typeof val === 'number' ? _.isNumber(val) : /^\d+$/.test(val);
 }
 
+function isValidFileName(val: string): boolean {
+  return /^([^\s\\/]+)$/.test(val);
+}
+
 function readPackageJson(keys?: string | string[]): any {
   try {
     const packageJsonPath = path.resolve(__dirname, '../../package.json');
@@ -32,4 +36,4 @@ function readPackageJson(keys?: string | string[]): any {
   }
 }
 
-export { isNumeric, readPackageJson };
+export { isNumeric, readPackageJson, isValidFileName };

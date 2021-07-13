@@ -22,18 +22,30 @@ program
     'Automatically answer "yes" to any prompts that the init process might print on the command line.'
   )
   .action(async function action(options) {
+    unilog('Init Studio');
     if (hasInited()) {
       unilog.warn('Studio has existed.');
       return;
     }
 
-    if (options.yes) {
-      init(DEFAULT_INIT_SETTING);
-      return;
-    }
+    try {
+      let initSetting;
+      if (options.yes) {
+        unilog.info('init Studio with default settings');
+        initSetting = DEFAULT_INIT_SETTING;
+      } else {
+        initSetting = await prompts();
+      }
 
-    const answers = await prompts();
-    if (answers) init(answers);
+      if (initSetting) {
+        init(initSetting);
+        unilog.info(
+          `Studio ${chalk.bold.yellow(initSetting.name)} initialized`
+        );
+      }
+    } catch (error) {
+      unilog.fail(error);
+    }
   })
   .parse();
 

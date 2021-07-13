@@ -1,4 +1,3 @@
-import { unilog } from '@gloxy/unilog';
 import path from 'path';
 import Listr from 'listr';
 import mkdirp from 'mkdirp';
@@ -19,11 +18,9 @@ async function init({
   location,
   description,
   locked,
-}: InitSetting): Promise<boolean> {
-  unilog('init Studio');
+}: InitSetting): Promise<any> {
   try {
     if (hasInited()) {
-      unilog.warn('Studio has existed.');
       return false;
     }
 
@@ -49,13 +46,8 @@ async function init({
       },
     ]);
 
-    await tasks.run();
-
-    unilog.succeed(`Studio was created successfully located in \n${root}.`);
-
-    return true;
+    return tasks.run();
   } catch (error) {
-    unilog.fail('Failed to init Studio:', error);
-    return false;
+    throw new Error(`Studio init failed: ${error}`);
   }
 }

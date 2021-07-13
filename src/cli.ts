@@ -11,7 +11,7 @@ import {
   cliDescription,
   cliUsage,
 } from './command-helper/cli-info';
-import { lockStudio, infoStudio, archiveStudio } from './option/studio';
+import { lockStudio, infoStudio } from './option/studio';
 
 const program = new Command();
 program
@@ -22,11 +22,10 @@ program
   .command('init', 'init studio', {
     executableFile: path.join(__dirname, 'command/studio-init.js'),
   })
-  // .command('proj', 'Project', {
-  //   executableFile: path.join(__dirname, 'command/proj.js'),
-  // })
+  .command('archive', 'archive studio', {
+    executableFile: path.join(__dirname, 'command/studio-archive.js'),
+  })
   .option('--info', 'output studio information')
-  .option('--archive', 'archive studio')
   .option('-l, --list', 'list all prjs')
   .option('-c, --create <name>', 'create a prj')
   .option('--lock', 'lock studio')
@@ -54,7 +53,7 @@ program
        * Options manipulation
        */
 
-      const { info, list, create, lock, archive } = options;
+      const { info, list, create, lock } = options;
 
       if (info) {
         infoStudio();
@@ -73,11 +72,6 @@ program
 
       if (lock !== undefined) {
         lockStudio(lock);
-        return;
-      }
-
-      if (archive) {
-        archiveStudio();
         return;
       }
     } catch (error) {

@@ -9,7 +9,6 @@ async function archive(
   subpath = ''
 ): Promise<void> {
   try {
-    // move Studio to archive
     const archivedPath = path.join(
       process.env.HOME || os.homedir(),
       process.env.STUDIO_ARCHIVE_DIR || '',
