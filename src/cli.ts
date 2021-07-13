@@ -27,7 +27,6 @@ program
   // })
   .option('--info', 'output studio information')
   .option('--archive', 'archive studio')
-  .option('-y, --yes', 'yes for some')
   .option('-l, --list', 'list all prjs')
   .option('-c, --create <name>', 'create a prj')
   .option('--lock', 'lock studio')
