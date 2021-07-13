@@ -4,7 +4,6 @@ import path from 'path';
 import chalk from 'chalk';
 import boxen from 'boxen';
 import cfonts from 'cfonts';
-import { init } from '../core/studio-init';
 import { setInfo, getInfo } from '../core/studio-info';
 import { archive } from '../core/studio-archive';
 import PATH from '../lib/path';
@@ -16,17 +15,6 @@ function lockStudio(lock: boolean): void {
   try {
     setInfo('locked', lock);
     unilog.succeed(`Studio ${lock ? '' : 'un'}locked`);
-  } catch (error) {
-    unilog.fail(error);
-  }
-}
-
-async function initStudio(studioPath: string): Promise<void> {
-  unilog('Init Studio');
-  try {
-    if (await init(studioPath)) {
-      unilog.succeed(`Studio created`);
-    }
   } catch (error) {
     unilog.fail(error);
   }
@@ -119,4 +107,4 @@ async function archiveStudio(): Promise<void> {
   }
 }
 
-export { lockStudio, initStudio, infoStudio, archiveStudio };
+export { lockStudio, infoStudio, archiveStudio };

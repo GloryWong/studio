@@ -1,1 +1,0 @@
-type SettingProp = 'description' | 'locked';

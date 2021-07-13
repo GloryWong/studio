@@ -1,5 +1,6 @@
 import './env';
 import { Command } from 'commander';
+import path from 'path';
 import _ from 'lodash';
 import { unilog } from '@gloxy/unilog';
 import { initCLIOrWarning } from './command-helper/init';
@@ -10,12 +11,7 @@ import {
   cliDescription,
   cliUsage,
 } from './command-helper/cli-info';
-import {
-  lockStudio,
-  initStudio,
-  archiveStudio,
-  infoStudio,
-} from './option/studio';
+import { lockStudio, infoStudio, archiveStudio } from './option/studio';
 
 const program = new Command();
 program
@@ -23,15 +19,17 @@ program
   .description(cliDescription)
   .usage(cliUsage)
   .arguments('[prjSelector]')
+  .command('init', 'init studio', {
+    executableFile: path.join(__dirname, 'command/studio-init.js'),
+  })
   // .command('proj', 'Project', {
-  //   executableFile: path.join(__dirname, 'command/proj'),
+  //   executableFile: path.join(__dirname, 'command/proj.js'),
   // })
-  .option('--init [studio path]', 'init studio')
   .option('--info', 'output studio information')
   .option('--archive', 'archive studio')
+  .option('-y, --yes', 'yes for some')
   .option('-l, --list', 'list all prjs')
   .option('-c, --create <name>', 'create a prj')
-  .option('--tag <tags...>', 'use tags')
   .option('--lock', 'lock studio')
   .option('--no-lock', 'unlock studio')
   .action(async function action(prjSelector: string, options) {
@@ -43,7 +41,7 @@ program
       }
 
       // check init
-      if (!options.init && !initCLIOrWarning()) {
+      if (!initCLIOrWarning()) {
         return;
       }
 
@@ -57,12 +55,7 @@ program
        * Options manipulation
        */
 
-      const { init, info, list, create, lock, archive } = options;
-
-      if (init) {
-        await initStudio(typeof init === 'boolean' ? undefined : init);
-        return;
-      }
+      const { info, list, create, lock, archive } = options;
 
       if (info) {
         infoStudio();

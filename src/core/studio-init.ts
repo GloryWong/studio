@@ -14,9 +14,12 @@ function hasInited(): boolean {
 /**
  * @description: the **most important** first step for Studio.
  */
-async function init(
-  studioPath: string = process.env.STUDIO_DEFAULT_NAME!
-): Promise<boolean> {
+async function init({
+  name,
+  location,
+  description,
+  locked,
+}: InitSetting): Promise<boolean> {
   unilog('init Studio');
   try {
     if (hasInited()) {
@@ -24,8 +27,7 @@ async function init(
       return false;
     }
 
-    const root = path.resolve(studioPath);
-    const { name: studioName } = path.parse(root);
+    const root = path.join(location, name);
 
     const tasks = new Listr([
       {
@@ -39,9 +41,9 @@ async function init(
         title: 'Create configuration',
         task: () => {
           conf.set('root', root);
-          conf.set('name', studioName);
-          conf.set('description', 'My Studio');
-          conf.set('locked', true);
+          conf.set('name', name);
+          conf.set('description', description);
+          conf.set('locked', locked);
           PATH.ROOT = root;
         },
       },
