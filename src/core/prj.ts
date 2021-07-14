@@ -3,33 +3,103 @@ import mkdirp from 'mkdirp';
 import path from 'path';
 import Listr from 'listr';
 import execa from 'execa';
+// import { projectInstall } from 'pkg-install';
+import chalk from 'chalk';
 import storage from '../lib/storage';
 import * as prjIndex from '../storage/prj-index';
 import PATH from '../lib/path';
-import { archive } from '../command-helper/archive';
+import * as utility from '../lib/utility';
 import conf from '../lib/conf';
 
 // prj name should be unique in a Studio
-function createPrj(name: string): string {
+async function createPrj(initSetting: any): Promise<string> {
   const id = uid();
   try {
+    const { name, initGit, initPkg, pkgManager } = initSetting;
     if (prjIndex.existsByName(name)) {
       throw new Error(`same name prj '${name}' already exists`);
     }
 
-    const prj: Prj = {
-      id,
-      name,
-    };
+    const tasks = new Listr([
+      {
+        title: 'Write storage',
+        task: () => {
+          const prj: Prj = {
+            id,
+            name,
+          };
 
-    storage.add(id, prj);
-    prjIndex.add(id, {
-      name,
-    });
+          storage.add(id, prj);
+        },
+      },
+      {
+        title: 'Write project index',
+        task: () => {
+          prjIndex.add(id, {
+            name,
+          });
+        },
+      },
+      {
+        title: 'Create project dir',
+        task: (ctx) => {
+          const prjPath = path.join(PATH.ROOT, name);
+          mkdirp.sync(prjPath);
+          ctx.prjPath = prjPath;
+        },
+      },
+      {
+        title: 'Initialize project with git',
+        task: async (ctx) => {
+          const result = await execa('git', ['init'], {
+            cwd: ctx.prjPath,
+          });
 
-    // create prj dir
-    mkdirp.sync(path.join(PATH.ROOT, name));
+          if (result.failed) {
+            return Promise.reject(new Error('Failed to initialize git'));
+          }
 
+          return Promise.resolve();
+        },
+        skip: () => !initGit,
+      },
+      {
+        title: `Initialize project with ${pkgManager}`,
+        task: async (ctx) => {
+          // projectInstall({
+          //   prefer: pkgManager,
+          //   cwd: ctx.prjPath,
+          // });
+          let result;
+          if (pkgManager === 'npm') {
+            result = await execa('npm', ['init', '-y'], {
+              cwd: ctx.prjPath,
+            });
+          }
+
+          if (pkgManager === 'yarn') {
+            // result = await execa('yarn', ['init'], {
+            //   cwd: ctx.prjPath,
+            // });
+          }
+
+          if (result?.failed) {
+            return Promise.reject(
+              new Error(
+                `Failed to initialize project with ${chalk.yellow.bold(
+                  pkgManager
+                )}`
+              )
+            );
+          }
+
+          return Promise.resolve();
+        },
+        skip: () => !initPkg,
+      },
+    ]);
+
+    await tasks.run();
     return id;
   } catch (error) {
     throw new Error(`createPrj failed: ${error}`);
@@ -73,7 +143,7 @@ function archivePrj(id: string): Promise<void> {
         title: `Move prj folder '${prjName}' to archive`,
         task: () => {
           const studioName = conf.get('name');
-          return archive(
+          return utility.archive(
             path.join(PATH.ROOT, prjName),
             `${studioName}.${prjName}.${id}`
           );

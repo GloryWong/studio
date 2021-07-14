@@ -4,36 +4,44 @@ import path from 'path';
 import _ from 'lodash';
 import { unilog } from '@gloxy/unilog';
 import { initCLIOrWarning } from './command-helper/init';
-import { listAllPrjs, searchAndChoosePrj } from './option/prj-list';
-import { createPrj } from './option/prj';
+import { choosePrj } from './command-helper/prj';
 import {
   cliVersion,
   cliDescription,
   cliUsage,
 } from './command-helper/cli-info';
-import { lockStudio, infoStudio } from './option/studio';
 
 const program = new Command();
 program
   .version(cliVersion)
   .description(cliDescription)
   .usage(cliUsage)
-  .arguments('[prjSelector]')
+  .argument('[project-name]', 'choose a project')
   .command('init', 'init studio', {
-    executableFile: path.join(__dirname, 'command/studio-init.js'),
+    executableFile: path.join(__dirname, 'command/init.js'),
   })
-  .command('archive', 'archive studio', {
-    executableFile: path.join(__dirname, 'command/studio-archive.js'),
+  .command('archive', 'archive studio or a project', {
+    executableFile: path.join(__dirname, 'command/archive.js'),
   })
-  .option('--info', 'output studio information')
-  .option('-l, --list', 'list all prjs')
-  .option('-c, --create <name>', 'create a prj')
-  .option('--lock', 'lock studio')
-  .option('--no-lock', 'unlock studio')
-  .action(async function action(prjSelector: string, options) {
+  .command('search', 'search project', {
+    executableFile: path.join(__dirname, 'command/search.js'),
+  })
+  .command('info', 'output studio information', {
+    executableFile: path.join(__dirname, 'command/info.js'),
+  })
+  .command('lock', 'lock or unlock studio', {
+    executableFile: path.join(__dirname, 'command/lock.js'),
+  })
+  .command('list', 'list projects in the studio', {
+    executableFile: path.join(__dirname, 'command/list.js'),
+  })
+  .command('create', 'create a project', {
+    executableFile: path.join(__dirname, 'command/create.js'),
+  })
+  .action(async function action(projectName: string, options) {
     try {
       // output help by default
-      if (!prjSelector && _.isEmpty(options)) {
+      if (!projectName && _.isEmpty(options)) {
         program.help();
         return;
       }
@@ -44,34 +52,8 @@ program
       }
 
       // instant searching projects
-      if (prjSelector) {
-        await searchAndChoosePrj(prjSelector);
-        return;
-      }
-
-      /**
-       * Options manipulation
-       */
-
-      const { info, list, create, lock } = options;
-
-      if (info) {
-        infoStudio();
-        return;
-      }
-
-      if (list) {
-        listAllPrjs();
-        return;
-      }
-
-      if (create) {
-        createPrj(create);
-        return;
-      }
-
-      if (lock !== undefined) {
-        lockStudio(lock);
+      if (projectName) {
+        choosePrj(projectName);
         return;
       }
     } catch (error) {

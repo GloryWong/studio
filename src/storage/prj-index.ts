@@ -15,6 +15,7 @@ export {
   removeByCode,
   getByCode,
   existsByName,
+  getByName,
 };
 
 function getAll(): Index {
@@ -64,6 +65,14 @@ function remove(id: string): void {
     setAll(index);
   } catch (error) {
     throw new Error(`removeFromIndex failed: ${error}`);
+  }
+}
+
+function getByName(name: string): IndexItem | undefined {
+  try {
+    return getAll().find((item: IndexItem) => item.name === name);
+  } catch (error) {
+    throw new Error(`getByName failed: ${error}`);
   }
 }
 

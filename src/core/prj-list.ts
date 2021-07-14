@@ -27,6 +27,10 @@ function getPrjCount(): number {
 function searchPrjList(str: string): PrjList {
   try {
     const prjList = getPrjList();
+    if (!str) {
+      return prjList;
+    }
+
     const fuse = new Fuse(prjList, {
       includeScore: true,
       keys: ['name'],

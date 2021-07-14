@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import Listr from 'listr';
 import conf from '../lib/conf';
-import { archive as archiveStudio } from '../command-helper/archive';
+import * as utility from '../lib/utility';
 
 async function archive(archiveName?: string): Promise<void> {
   try {
@@ -10,7 +10,7 @@ async function archive(archiveName?: string): Promise<void> {
     const tasks = new Listr([
       {
         title: `Move Studio folder '${archiveName}' to archive`,
-        task: () => archiveStudio(root, `${archiveName}.${DateTime.now()}`),
+        task: () => utility.archive(root, `${archiveName}.${DateTime.now()}`),
       },
       {
         title: "Delete 'root' in configuration",
