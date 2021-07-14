@@ -1,44 +1,43 @@
-# `@gloxy/demo-cli`
+# `@gloxy/studio`
 
-**Demo CLI**
+**Command Line Interface**
 
-Create and manage local demos in one place instantly and smoothly.
+Manage local projects and demos in one place instantly and smoothly.
 
 # Install
 
 ```sh
-npm -g i @gloxy/demo-cli
+npm -g i @gloxy/studio
 ```
+
 or
+
 ```sh
-yarn global add @gloxy/demo-cli
+yarn global add @gloxy/studio
 ```
 
 # Usage
 
 ```sh
-gdemo --help
+$ gs --help
 
-Usage: gdemo [optons] [command] [demoSelector]
-  demoSelector: a `demo code` from the displayed demo list, opening a demo
-                in a new editor window by default.
-                Options:
-                  * -r: open the demo in the last active editor window
-                  * -a: archive the demo
+Usage: gs [options] [command] [project-name]
 
-Description: Create and manage local demos in one place instantly and smoothly.
+Description: Manage local projects and demos in one place instantly and smoothly.
+
+Arguments:
+  project-name   choose a project
 
 Options:
-  -V, --version        output the version number
-  -l, --list           list all demos
-  -c, --create <name>  create a demo
-  --tag <tags...>      use tags
-  --lock               lock Studio
-  --no-lock            unlock Studio
-  -h, --help           display help for command
+  -V, --version  output the version number
+  -h, --help     display help for command
 
 Commands:
-  init [path]          Init a Studio
-  archive              Archive existing Studio
-  info                 Display Studio information
+  init           init studio
+  archive        archive studio or a project
+  search         search project
+  info           output studio information
+  lock           lock or unlock studio
+  list           list projects in the studio
+  create         create a project
 ```

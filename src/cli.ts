@@ -8,14 +8,14 @@ import { choosePrj } from './command-helper/prj';
 import {
   cliVersion,
   cliDescription,
-  cliUsage,
+  // cliUsage,
 } from './command-helper/cli-info';
 
 const program = new Command();
 program
   .version(cliVersion)
   .description(cliDescription)
-  .usage(cliUsage)
+  // .usage(cliUsage)
   .argument('[project-name]', 'choose a project')
   .command('init', 'init studio', {
     executableFile: path.join(__dirname, 'command/init.js'),

@@ -6,11 +6,6 @@ const { version: cliVersion, description: pkgDescription } = readPackageJson([
 ]);
 const cliDescription = `Description: ${pkgDescription}`;
 
-const cliUsage = `[optons] [command] [prjSelector]
-  prjSelector: a \`prj code\` from the displayed prj list, opening a prj
-                in a new editor window by default.
-                Options:
-                  * -r: open the prj in the last active editor window
-                  * -a: archive the prj`;
+const cliUsage = `[optons] [command] [prjSelector]`;
 
 export { cliVersion, cliDescription, cliUsage };
