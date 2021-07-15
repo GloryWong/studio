@@ -1,10 +1,10 @@
-type PrjTag = {
+type ProjectTag = {
   id: string;
   name: string;
 };
 
-type Prj = {
+type Project = {
   id: string;
   name: string;
-  tags?: Array<PrjTag>;
+  tags?: Array<ProjectTag>;
 };

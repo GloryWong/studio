@@ -23,7 +23,6 @@
     "playground"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
   "publishConfig": {
     "access": "public"
   },

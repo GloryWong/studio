@@ -6,6 +6,6 @@ const { version: cliVersion, description: pkgDescription } = readPackageJson([
 ]);
 const cliDescription = `Description: ${pkgDescription}`;
 
-const cliUsage = `[optons] [command] [prjSelector]`;
+const cliUsage = `[optons] [command] [projectSelector]`;
 
 export { cliVersion, cliDescription, cliUsage };

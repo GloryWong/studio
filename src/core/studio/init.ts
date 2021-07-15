@@ -1,26 +1,21 @@
 import path from 'path';
 import Listr from 'listr';
 import mkdirp from 'mkdirp';
-import PATH from '../lib/path';
-import conf from '../lib/conf';
-
-export { init, hasInited };
-
-function hasInited(): boolean {
-  return conf.has('root');
-}
+import PATH from '../../lib/path';
+import { hasStudioInited } from '../../utils/init';
+import conf from '../../lib/conf';
 
 /**
  * @description: the **most important** first step for Studio.
  */
-async function init({
+async function initStudio({
   name,
   location,
   description,
   locked,
 }: InitSetting): Promise<any> {
   try {
-    if (hasInited()) {
+    if (hasStudioInited()) {
       return false;
     }
 
@@ -51,3 +46,5 @@ async function init({
     throw new Error(`Studio init failed: ${error}`);
   }
 }
+
+export { initStudio };

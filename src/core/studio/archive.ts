@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
 import Listr from 'listr';
-import conf from '../lib/conf';
-import * as utility from '../lib/utility';
+import conf from '../../lib/conf';
+import * as utility from '../../lib/utility';
 
-async function archive(archiveName?: string): Promise<void> {
+async function archiveStudio(archiveName?: string): Promise<void> {
   try {
     const root = conf.get('root');
 
@@ -26,5 +26,4 @@ async function archive(archiveName?: string): Promise<void> {
   }
 }
 
-export default archive;
-export { archive };
+export { archiveStudio };

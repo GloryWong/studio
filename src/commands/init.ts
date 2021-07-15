@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { Command } from 'commander';
-import { initStudio } from '../command-helper/studio';
+import { Command } from '../base/commander';
+import { initStudio } from '../components/studio';
 
-const program = new Command();
-program
+new Command({ needPrepareCommand: false })
   .description('Create and initialize studio')
   .option(
     '-y, --yes',

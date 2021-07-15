@@ -1,2 +1,7 @@
-type PrjListItem = { id: string; name: string; code: number; tags?: PrjTag };
-type PrjList = Array<PrjListItem>;
+type ProjectListItem = {
+  id: string;
+  name: string;
+  code: number;
+  tags?: ProjectTag;
+};
+type ProjectList = Array<ProjectListItem>;
