@@ -11,12 +11,12 @@ async function openProject(id: string, options?: any): Promise<void> {
       const answers = await prompt([
         {
           type: 'confirm',
-          name: 'resuseWindow',
+          name: 'newWindow',
           message: 'Open project in new window?',
           default: true,
         },
       ]);
-      reuseWindow = answers.reuseWindow;
+      reuseWindow = !answers.newWindow;
     }
 
     project.openProject(id, reuseWindow);
