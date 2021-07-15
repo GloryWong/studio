@@ -1,11 +1,10 @@
 {
   "name": "@gloxy/studio",
   "description": "Manage local projects and demos in one place instantly and smoothly.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
   "bin": {
-    "gs": "./bin/demo.js",
-    "gs-test": "./bin/demo-test.js"
+    "gs": "./bin/demo.js"
   },
   "bugs": "https://github.com/GloryWong/studio/issues",
   "engines": {
