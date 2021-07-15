@@ -10,7 +10,7 @@ import conf from '../lib/conf';
 import { archive } from '../core/studio-archive';
 import * as utility from '../lib/utility';
 import { getInfo, setInfo } from '../core/studio-info';
-import { cliVersion } from './cli-info';
+import { cliVersion } from '../cli-helper/cli-info';
 import { init, hasInited } from '../core/studio-init';
 
 async function archiveStudio(): Promise<void> {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Command } from 'commander';
 import { archivePrj } from '../command-helper/prj';
-import { initCLIOrWarning } from '../command-helper/init';
+import { initCLIOrWarning } from '../cli-helper/init';
 import { archiveStudio } from '../command-helper/studio';
 
 new Command()

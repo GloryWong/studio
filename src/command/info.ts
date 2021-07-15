@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { initCLIOrWarning } from '../command-helper/init';
+import { initCLIOrWarning } from '../cli-helper/init';
 import { infoStudio } from '../command-helper/studio';
 
 new Command()

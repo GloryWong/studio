@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { initCLIOrWarning } from '../command-helper/init';
+import { initCLIOrWarning } from '../cli-helper/init';
 import { displayList } from '../command-helper/prj-list';
 
 new Command()

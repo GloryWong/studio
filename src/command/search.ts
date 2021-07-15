@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import { choosePrj } from '../command-helper/prj';
-import { initCLIOrWarning } from '../command-helper/init';
+import { initCLIOrWarning } from '../cli-helper/init';
 
 new Command()
   .argument('[project-name]')

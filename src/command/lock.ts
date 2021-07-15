@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { initCLIOrWarning } from '../command-helper/init';
+import { initCLIOrWarning } from '../cli-helper/init';
 import { lockStudio } from '../command-helper/studio';
 
 const program = new Command();

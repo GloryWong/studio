@@ -3,13 +3,13 @@ import { Command } from 'commander';
 import path from 'path';
 import _ from 'lodash';
 import { unilog } from '@gloxy/unilog';
-import { initCLIOrWarning } from './command-helper/init';
+import { initCLIOrWarning } from './cli-helper/init';
 import { choosePrj } from './command-helper/prj';
 import {
   cliVersion,
   cliDescription,
   // cliUsage,
-} from './command-helper/cli-info';
+} from './cli-helper/cli-info';
 
 const program = new Command();
 program
