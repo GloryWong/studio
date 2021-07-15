@@ -8,4 +8,4 @@ new Command({ helpByDefault: true })
   .action(({ studio }) => {
     lockStudio(studio);
   })
-  .parse();
+  .parseAsync();

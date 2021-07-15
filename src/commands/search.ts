@@ -7,4 +7,4 @@ new Command()
   .action((projectName) => {
     chooseProject(projectName);
   })
-  .parse();
+  .parseAsync();

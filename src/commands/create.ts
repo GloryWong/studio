@@ -6,4 +6,4 @@ new Command()
   .action(() => {
     createProject();
   })
-  .parse();
+  .parseAsync();

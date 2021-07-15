@@ -5,4 +5,4 @@ new Command()
   .action(() => {
     infoStudio();
   })
-  .parse();
+  .parseAsync();

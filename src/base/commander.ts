@@ -1,9 +1,11 @@
 import { Command } from 'commander';
 import { unilog } from '@gloxy/unilog';
+import { prompt } from 'inquirer';
 import { prepareCommand } from '../utils/prepare';
 import { hasStudioInited } from '../utils/init';
+import { initStudio } from '../components/studio';
 
-function preAction(thisCommand: any): void {
+async function preAction(thisCommand: any): Promise<void> {
   // unilog.info(thisCommand);
 
   if (
@@ -17,7 +19,38 @@ function preAction(thisCommand: any): void {
 
   if (thisCommand.cmdOptions.needPrepareCommand) {
     if (!hasStudioInited()) {
-      unilog.warn('Studio does not exist, please init first.');
+      unilog.warn(
+        `Studio does not exist. So cannot execute command '${thisCommand.name()}'.`
+      );
+      const { willInit, stepInit } = await prompt([
+        {
+          type: 'confirm',
+          name: 'willInit',
+          message: 'Do you wannt to create studio?',
+          default: false,
+        },
+        {
+          type: 'list',
+          name: 'stepInit',
+          message: 'Choose a way to create studio:',
+          when: ({ willInit: wi }) => wi,
+          choices: [
+            {
+              name: 'Step by step',
+              value: 'step',
+            },
+            {
+              name: 'Use default settings',
+              value: 'default',
+            },
+          ],
+          default: 0,
+        },
+      ]);
+
+      if (willInit) {
+        await initStudio(!stepInit);
+      }
       process.exit(1);
     }
     prepareCommand();

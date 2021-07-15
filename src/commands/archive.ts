@@ -17,4 +17,4 @@ new Command({ helpByDefault: true })
       archiveStudio();
     }
   })
-  .parse();
+  .parseAsync();

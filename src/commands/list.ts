@@ -5,4 +5,4 @@ new Command()
   .action(() => {
     displayProjectList();
   })
-  .parse();
+  .parseAsync();

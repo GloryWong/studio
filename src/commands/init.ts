@@ -11,4 +11,4 @@ new Command({ needPrepareCommand: false })
   .action(async function action({ yes }) {
     initStudio(yes);
   })
-  .parse();
+  .parseAsync();
