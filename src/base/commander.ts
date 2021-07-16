@@ -49,7 +49,7 @@ async function preAction(thisCommand: any): Promise<void> {
       ]);
 
       if (willInit) {
-        await initStudio(!stepInit);
+        await initStudio(stepInit === 'default');
       }
       process.exit(1);
     }

@@ -4,6 +4,8 @@ import path from 'path';
 import copy from 'recursive-copy';
 import os from 'os';
 import chalk from 'chalk';
+import { readdir } from 'fs/promises';
+import execa from 'execa';
 
 function isNumeric(val: string | number): boolean {
   return typeof val === 'number' ? _.isNumber(val) : /^\d+$/.test(val);
@@ -80,6 +82,38 @@ function validateLocationAccess(location: string): string | boolean {
   return true;
 }
 
+async function installPkgDeps(dirPath: string): Promise<number> {
+  const files = await readdir(dirPath);
+  const cmds = {
+    npm: 'npm install',
+    yarn: 'npx yarn install',
+  };
+
+  let cmd;
+  if (files.includes('package-lock.json')) {
+    cmd = cmds.npm;
+  } else if (files.includes('yarn.lock')) {
+    cmd = cmds.yarn;
+  } else if (files.includes('package.json')) {
+    cmd = cmds.npm;
+  } else {
+    return installPkgDeps.NO_DEPS_INFO;
+  }
+
+  const result = await execa.command(cmd, {
+    cwd: dirPath,
+  });
+
+  if (result.failed) {
+    return installPkgDeps.INSTALL_FAILED;
+  }
+
+  return installPkgDeps.SUCCESS;
+}
+installPkgDeps.SUCCESS = 0;
+installPkgDeps.NO_DEPS_INFO = 1;
+installPkgDeps.INSTALL_FAILED = 2;
+
 export {
   isNumeric,
   readPackageJson,
@@ -87,4 +121,5 @@ export {
   archive,
   validateLocationAccess,
   validatePathExist,
+  installPkgDeps,
 };

@@ -35,6 +35,9 @@ new Command({ helpByDefault: true })
   .command('create', 'create a project', {
     executableFile: path.join(__dirname, 'commands/create.js'),
   })
+  .command('clone', 'clone a project from git repository', {
+    executableFile: path.join(__dirname, 'commands/clone.js'),
+  })
   .action(async function action(projectName: string) {
     try {
       // instant searching projects
