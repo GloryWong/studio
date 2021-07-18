@@ -1,7 +1,7 @@
 import path from 'path';
 import execa from 'execa';
-import * as projectIndex from '../../storage/project-index';
-import PATH from '../../lib/path';
+import * as projectIndex from '@storage/project-index';
+import PATH from '@lib/path';
 
 function openProject(id: string, reuseWindow = false): void {
   try {

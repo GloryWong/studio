@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { Command } from '../base/commander';
-import { initStudio } from '../components/studio';
+import { Command } from '@base/commander';
+import { initStudio } from '@components/studio';
 
 new Command({ needPrepareCommand: false })
   .description('Create and initialize studio')

@@ -1,9 +1,9 @@
 import { unilog } from '@gloxy/unilog';
 import chalk from 'chalk';
 import { prompt } from 'inquirer';
-import * as studio from '../../core/studio';
-import conf from '../../lib/conf';
-import * as utility from '../../lib/utility';
+import * as studio from '@core/studio';
+import conf from '@lib/conf';
+import * as utility from '@lib/utility';
 
 async function archiveStudio(): Promise<void> {
   unilog('Archive Studio');

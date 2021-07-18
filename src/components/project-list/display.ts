@@ -1,7 +1,7 @@
 import columns from 'cli-columns';
 import { unilog } from '@gloxy/unilog';
 import chalk from 'chalk';
-import { getProjectList } from '../../core/project-list';
+import { getProjectList } from '@core/project-list';
 
 function displayProjectList() {
   unilog('Display list');

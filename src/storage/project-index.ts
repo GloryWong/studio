@@ -1,4 +1,4 @@
-import storage from '../lib/storage';
+import storage from '@lib/storage';
 
 // Note: the array index of item in INDEX storage as Code
 

@@ -1,6 +1,6 @@
 import { unilog } from '@gloxy/unilog';
 import { prompt } from 'inquirer';
-import * as project from '../../core/project';
+import * as project from '@core/project';
 
 async function openProject(id: string, options?: any): Promise<void> {
   try {

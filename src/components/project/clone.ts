@@ -2,9 +2,9 @@ import { unilog } from '@gloxy/unilog';
 import chalk from 'chalk';
 import { prompt } from 'inquirer';
 import isUrl from 'is-url';
-import * as project from '../../core/project';
+import * as project from '@core/project';
+import * as projectIndex from '@storage/project-index';
 import { openProject } from './open';
-import * as projectIndex from '../../storage/project-index';
 import { promptOpenProject } from './prompts';
 
 async function promptInit(gitRepoUrl?: string): Promise<any> {

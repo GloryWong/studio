@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    // "declaration": true,
     "importHelpers": true,
     "module": "commonjs",
     "outDir": "lib",
@@ -11,8 +10,11 @@
     "removeComments": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "src",
+    "paths": {
+      "@*": ["*"]
+    }
   },
   "include": ["src/**/*"]
-  // "exclude": ["types"]
 }

@@ -1,6 +1,6 @@
-import PATH from '../lib/path';
-import conf from '../lib/conf';
-import storage from '../lib/storage';
+import PATH from '@lib/path';
+import conf from '@lib/conf';
+import storage from '@lib/storage';
 
 function prepareCommand(): void {
   try {

@@ -1,5 +1,5 @@
-import { Command } from '../base/commander';
-import { infoStudio } from '../components/studio';
+import { Command } from '@base/commander';
+import { infoStudio } from '@components/studio';
 
 new Command()
   .action(() => {

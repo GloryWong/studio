@@ -1,9 +1,9 @@
 import path from 'path';
 import Listr from 'listr';
 import mkdirp from 'mkdirp';
-import PATH from '../../lib/path';
-import { hasStudioInited } from '../../utils/init';
-import conf from '../../lib/conf';
+import PATH from '@lib/path';
+import { hasStudioInited } from '@utils/init';
+import conf from '@lib/conf';
 
 /**
  * @description: the **most important** first step for Studio.

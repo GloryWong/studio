@@ -1,5 +1,5 @@
-import { Command } from '../base/commander';
-import { cloneProject } from '../components/project';
+import { Command } from '@base/commander';
+import { cloneProject } from '@components/project';
 
 new Command()
   .description('Clone a project from a git repository')

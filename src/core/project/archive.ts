@@ -1,10 +1,10 @@
 import path from 'path';
 import Listr from 'listr';
-import storage from '../../lib/storage';
-import * as projectIndex from '../../storage/project-index';
-import PATH from '../../lib/path';
-import * as utility from '../../lib/utility';
-import conf from '../../lib/conf';
+import storage from '@lib/storage';
+import * as projectIndex from '@storage/project-index';
+import PATH from '@lib/path';
+import * as utility from '@lib/utility';
+import conf from '@lib/conf';
 
 function archiveProject(id: string): Promise<void> {
   try {

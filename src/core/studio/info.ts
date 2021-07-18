@@ -1,4 +1,4 @@
-import conf from '../../lib/conf';
+import conf from '@lib/conf';
 import { getProjectCount } from '../project-list';
 
 function getStudioInfo(): any {

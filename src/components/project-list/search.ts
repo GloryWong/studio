@@ -1,8 +1,8 @@
 import autocomplete from 'inquirer-autocomplete-prompt';
 import inquirer, { prompt } from 'inquirer';
 import { unilog } from '@gloxy/unilog';
-import { getByName } from '../../storage/project-index';
-import * as projectList from '../../core/project-list';
+import { getByName } from '@storage/project-index';
+import * as projectList from '@core/project-list';
 
 async function searchProjectList(text = ''): Promise<IndexItem | undefined> {
   unilog('Search project');

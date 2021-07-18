@@ -1,5 +1,5 @@
 import { unilog } from '@gloxy/unilog';
-import * as studio from '../../core/studio';
+import * as studio from '@core/studio';
 
 function lockStudio(lock: boolean): void {
   unilog('Lock Studio');

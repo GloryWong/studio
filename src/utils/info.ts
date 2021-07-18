@@ -1,4 +1,4 @@
-import { readPackageJson } from '../lib/utility';
+import { readPackageJson } from '@lib/utility';
 
 const { version: cliVersion, description: pkgDescription } = readPackageJson([
   'version',

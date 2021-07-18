@@ -1,5 +1,5 @@
-import { Command } from '../base/commander';
-import { chooseProject } from '../components/project';
+import { Command } from '@base/commander';
+import { chooseProject } from '@components/project';
 
 new Command()
   .argument('[project-name]')

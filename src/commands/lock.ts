@@ -1,5 +1,5 @@
-import { Command } from '../base/commander';
-import { lockStudio } from '../components/studio';
+import { Command } from '@base/commander';
+import { lockStudio } from '@components/studio';
 
 new Command({ helpByDefault: true })
   .option('--studio', 'lock studio')

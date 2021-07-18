@@ -1,4 +1,4 @@
-import conf from '../lib/conf';
+import conf from '@lib/conf';
 
 function hasStudioInited(): boolean {
   return conf.has('root');

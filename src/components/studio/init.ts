@@ -3,9 +3,9 @@ import chalk from 'chalk';
 import { prompt } from 'inquirer';
 import os from 'os';
 import path from 'path';
-import * as utility from '../../lib/utility';
-import * as studio from '../../core/studio';
-import { hasStudioInited } from '../../utils/init';
+import * as utility from '@lib/utility';
+import * as studio from '@core/studio';
+import { hasStudioInited } from '@utils/init';
 
 const DEFAULT_INIT_SETTING: InitSetting = {
   location: process.cwd(),

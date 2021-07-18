@@ -1,9 +1,9 @@
 import { Command } from 'commander';
 import { unilog } from '@gloxy/unilog';
 import { prompt } from 'inquirer';
-import { prepareCommand } from '../utils/prepare';
-import { hasStudioInited } from '../utils/init';
-import { initStudio } from '../components/studio';
+import { prepareCommand } from '@utils/prepare';
+import { hasStudioInited } from '@utils/init';
+import { initStudio } from '@components/studio';
 
 async function preAction(thisCommand: any): Promise<void> {
   // unilog.info(thisCommand);

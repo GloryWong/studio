@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-import { Command } from '../base/commander';
-import { archiveProject } from '../components/project';
-import { archiveStudio } from '../components/studio';
+import { Command } from '@base/commander';
+import { archiveProject } from '@components/project';
+import { archiveStudio } from '@components/studio';
 
 new Command({ helpByDefault: true })
   .option('--project [project-name]')

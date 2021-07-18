@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js';
-import * as index from '../../storage/project-index';
+import * as index from '@storage/project-index';
 
 function getProjectList(): ProjectList {
   try {

@@ -2,8 +2,8 @@ import { unilog } from '@gloxy/unilog';
 import chalk from 'chalk';
 import boxen from 'boxen';
 import cfonts from 'cfonts';
-import * as studio from '../../core/studio';
-import { cliVersion } from '../../utils/info';
+import * as studio from '@core/studio';
+import { cliVersion } from '@utils/info';
 
 function infoStudio(): void {
   try {

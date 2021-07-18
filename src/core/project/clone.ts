@@ -3,10 +3,10 @@ import mkdirp from 'mkdirp';
 import path from 'path';
 import Listr from 'listr';
 import execa from 'execa';
-import storage from '../../lib/storage';
-import * as projectIndex from '../../storage/project-index';
-import PATH from '../../lib/path';
-import * as utility from '../../lib/utility';
+import storage from '@lib/storage';
+import * as projectIndex from '@storage/project-index';
+import PATH from '@lib/path';
+import * as utility from '@lib/utility';
 
 // project name should be unique in a Studio
 async function cloneProject(initSetting: any): Promise<string> {

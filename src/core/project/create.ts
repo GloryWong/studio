@@ -5,9 +5,9 @@ import Listr from 'listr';
 import execa from 'execa';
 // import { projectInstall } from 'pkg-install';
 import chalk from 'chalk';
-import storage from '../../lib/storage';
-import * as projectIndex from '../../storage/project-index';
-import PATH from '../../lib/path';
+import storage from '@lib/storage';
+import * as projectIndex from '@storage/project-index';
+import PATH from '@lib/path';
 
 // project name should be unique in a Studio
 async function createProject(initSetting: any): Promise<string> {

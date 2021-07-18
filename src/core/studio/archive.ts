@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import Listr from 'listr';
-import conf from '../../lib/conf';
-import * as utility from '../../lib/utility';
+import conf from '@lib/conf';
+import * as utility from '@lib/utility';
 
 async function archiveStudio(archiveName?: string): Promise<void> {
   try {
