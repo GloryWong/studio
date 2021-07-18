@@ -8,7 +8,7 @@ import conf from '../../lib/conf';
 
 function archiveProject(id: string): Promise<void> {
   try {
-    const project: Project.Project = storage.get(id, '');
+    const project: Project = storage.get(id, '');
     const { name: projectName } = project;
 
     const tasks = new Listr([

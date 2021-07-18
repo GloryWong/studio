@@ -1,10 +1,10 @@
 import Fuse from 'fuse.js';
 import * as index from '../../storage/project-index';
 
-function getProjectList(): ProjectList.List {
+function getProjectList(): ProjectList {
   try {
     const indexAll = index.getAll();
-    const projectList: ProjectList.List = indexAll.map(
+    const projectList: ProjectList = indexAll.map(
       ({ name, id }: { name: string; id: string }, i: number) => ({
         id,
         name,
@@ -26,7 +26,7 @@ function getProjectCount(): number {
   }
 }
 
-function searchProjectList(str: string): ProjectList.List {
+function searchProjectList(str: string): ProjectList {
   try {
     const projectList = getProjectList();
     if (!str) {

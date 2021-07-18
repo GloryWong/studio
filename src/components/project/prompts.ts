@@ -1,9 +1,7 @@
 import { prompt } from 'inquirer';
 
-async function promptOpenProject(
-  options: any = {}
-): Promise<Project.WillOpenProject> {
-  const { willOpenProject }: { willOpenProject: Project.WillOpenProject } =
+async function promptOpenProject(options: any = {}): Promise<WillOpenProject> {
+  const { willOpenProject }: { willOpenProject: WillOpenProject } =
     await prompt([
       {
         type: 'list',

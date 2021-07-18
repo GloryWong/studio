@@ -11,9 +11,8 @@
     "removeComments": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["types"]
+  "include": ["src/**/*"]
+  // "exclude": ["types"]
 }

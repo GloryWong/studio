@@ -7,14 +7,14 @@ import * as utility from '../../lib/utility';
 import * as studio from '../../core/studio';
 import { hasStudioInited } from '../../utils/init';
 
-const DEFAULT_INIT_SETTING: Studio.InitSetting = {
+const DEFAULT_INIT_SETTING: InitSetting = {
   location: process.cwd(),
   name: process.env.STUDIO_DEFAULT_NAME || 'shit',
   description: 'My Studio',
   locked: true,
 };
 
-async function promptInit(): Promise<Studio.InitSetting | null> {
+async function promptInit(): Promise<InitSetting | null> {
   try {
     const answers = await prompt([
       {

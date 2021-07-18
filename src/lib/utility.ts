@@ -84,7 +84,7 @@ function validateLocationAccess(location: string): string | boolean {
 
 async function installPkgDeps(
   dirPath: fs.PathLike
-): Promise<Utility.InstallPkgDepsStatus> {
+): Promise<InstallPkgDepsStatus> {
   const files = await readdir(dirPath);
   const cmds = {
     npm: 'npm install',
@@ -99,7 +99,7 @@ async function installPkgDeps(
   } else if (files.includes('package.json')) {
     cmd = cmds.npm;
   } else {
-    return Utility.InstallPkgDepsStatus.NO_DEPS_INFO;
+    return InstallPkgDepsStatus.NO_DEPS_INFO;
   }
 
   const result = await execa.command(cmd, {
@@ -107,10 +107,10 @@ async function installPkgDeps(
   });
 
   if (result.failed) {
-    return Utility.InstallPkgDepsStatus.INSTALL_FAILED;
+    return InstallPkgDepsStatus.INSTALL_FAILED;
   }
 
-  return Utility.InstallPkgDepsStatus.SUCCESS;
+  return InstallPkgDepsStatus.SUCCESS;
 }
 
 export {

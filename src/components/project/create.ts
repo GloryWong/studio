@@ -94,7 +94,7 @@ async function createProject(): Promise<void> {
       // open project
       const willOpenProject = await promptOpenProject();
 
-      if (willOpenProject !== Project.WillOpenProject.NOT_OPEN) {
+      if (willOpenProject !== WillOpenProject.NOT_OPEN) {
         openProject(id, {
           reuseWindow: willOpenProject,
         });

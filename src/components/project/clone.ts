@@ -67,6 +67,9 @@ async function promptInit(gitRepoUrl?: string): Promise<any> {
   }
 }
 
+/**
+ * @param url - A git repository url which will be cloned
+ */
 async function cloneProject(url?: string): Promise<void> {
   unilog('Clone Project');
 
@@ -83,7 +86,7 @@ async function cloneProject(url?: string): Promise<void> {
       // open project
       const willOpenProject = await promptOpenProject();
 
-      if (willOpenProject !== Project.WillOpenProject.NOT_OPEN) {
+      if (willOpenProject !== WillOpenProject.NOT_OPEN) {
         openProject(id, {
           reuseWindow: willOpenProject,
         });

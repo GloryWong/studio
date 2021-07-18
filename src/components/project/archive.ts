@@ -3,6 +3,9 @@ import { prompt } from 'inquirer';
 import * as project from '../../core/project';
 import { searchProjectList } from '../project-list';
 
+/**
+ * @param projectName - the project which will be archived
+ */
 async function archiveProject(projectName: string): Promise<void> {
   unilog('Achive project');
   try {

@@ -13,7 +13,7 @@ async function initStudio({
   location,
   description,
   locked,
-}: Studio.InitSetting): Promise<any> {
+}: InitSetting): Promise<any> {
   try {
     if (hasStudioInited()) {
       return false;

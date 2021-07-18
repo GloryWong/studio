@@ -12,7 +12,7 @@ function getStudioInfo(): any {
   };
 }
 
-function setStudioInfo(prop: Studio.SettingProp, value: any): void {
+function setStudioInfo(prop: SettingProp, value: any): void {
   conf.set(prop, value);
 }
 
