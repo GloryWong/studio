@@ -5,6 +5,7 @@ import * as project from '../../core/project';
 import * as projectIndex from '../../storage/project-index';
 import { isValidFileName } from '../../lib/utility';
 import { openProject } from './open';
+import { promptOpenProject } from './prompts';
 
 async function promptInit(): Promise<any> {
   try {
@@ -91,30 +92,9 @@ async function createProject(): Promise<void> {
       unilog.succeed(`Project ${chalk.bold.yellow(initSetting.name)} created.`);
 
       // open project
-      const { willOpenProject } = await prompt([
-        {
-          type: 'list',
-          name: 'willOpenProject',
-          message: 'Open project?',
-          choices: [
-            {
-              name: 'Not open',
-              value: 'notOpen',
-            },
-            {
-              name: 'Open in new window',
-              value: false,
-            },
-            {
-              name: 'Open in last active window',
-              value: true,
-            },
-          ],
-          default: 0,
-        },
-      ]);
+      const willOpenProject = await promptOpenProject();
 
-      if (willOpenProject !== 'notOpen') {
+      if (willOpenProject !== Project.WillOpenProject.NOT_OPEN) {
         openProject(id, {
           reuseWindow: willOpenProject,
         });

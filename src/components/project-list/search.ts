@@ -4,7 +4,9 @@ import { unilog } from '@gloxy/unilog';
 import { getByName } from '../../storage/project-index';
 import * as projectList from '../../core/project-list';
 
-async function searchProjectList(text = ''): Promise<IndexItem | undefined> {
+async function searchProjectList(
+  text = ''
+): Promise<ProjectList.IndexItem | undefined> {
   unilog('Search project');
   try {
     inquirer.registerPrompt('autocomplete', autocomplete);
@@ -16,7 +18,7 @@ async function searchProjectList(text = ''): Promise<IndexItem | undefined> {
         name: 'projectName',
         message: 'Search project:',
         pageSize: 10,
-        source: (answers: any, input: string): Promise<ProjectList> => {
+        source: (answers: any, input: string): Promise<ProjectList.List> => {
           let searchParam = '';
           if (firstTime && text) {
             searchParam = text;

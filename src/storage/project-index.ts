@@ -4,7 +4,7 @@ import storage from '../lib/storage';
 
 // constants
 const INDEX_NAME: string = process.env.STUDIO_INDEX_NAME || '';
-const INDEX_DEFAULT_VALUE: Index = [];
+const INDEX_DEFAULT_VALUE: ProjectList.Index = [];
 
 export {
   add,
@@ -18,7 +18,7 @@ export {
   getByName,
 };
 
-function getAll(): Index {
+function getAll(): ProjectList.Index {
   try {
     return storage.get(INDEX_NAME, JSON.stringify(INDEX_DEFAULT_VALUE));
   } catch (error) {
@@ -26,7 +26,7 @@ function getAll(): Index {
   }
 }
 
-function setAll(value: Index) {
+function setAll(value: ProjectList.Index) {
   try {
     storage.set(INDEX_NAME, value);
   } catch (error) {
@@ -36,8 +36,8 @@ function setAll(value: Index) {
 
 function add(id: string, value: any): void {
   try {
-    const index: Index = getAll();
-    const item: IndexItem = {
+    const index: ProjectList.Index = getAll();
+    const item: ProjectList.IndexItem = {
       id,
       ...value,
     };
@@ -48,10 +48,10 @@ function add(id: string, value: any): void {
   }
 }
 
-function get(id: string): IndexItem | undefined {
+function get(id: string): ProjectList.IndexItem | undefined {
   try {
-    const index: Index = getAll();
-    return index.find((item: IndexItem) => item.id === id);
+    const index: ProjectList.Index = getAll();
+    return index.find((item: ProjectList.IndexItem) => item.id === id);
   } catch (error) {
     throw new Error(`get failed: ${error}`);
   }
@@ -68,9 +68,9 @@ function remove(id: string): void {
   }
 }
 
-function getByName(name: string): IndexItem | undefined {
+function getByName(name: string): ProjectList.IndexItem | undefined {
   try {
-    return getAll().find((item: IndexItem) => item.name === name);
+    return getAll().find((item: ProjectList.IndexItem) => item.name === name);
   } catch (error) {
     throw new Error(`getByName failed: ${error}`);
   }
@@ -85,9 +85,9 @@ function existsByName(name: string): boolean {
   }
 }
 
-function getByCode(code: number): IndexItem {
+function getByCode(code: number): ProjectList.IndexItem {
   try {
-    const index: Index = getAll();
+    const index: ProjectList.Index = getAll();
     return index[code];
   } catch (error) {
     throw new Error(`getByCode failed: ${error}`);
@@ -96,7 +96,7 @@ function getByCode(code: number): IndexItem {
 
 function removeByCode(code: number): void {
   try {
-    const index: Index = getAll();
+    const index: ProjectList.Index = getAll();
     index.splice(code, 1);
     setAll(index);
   } catch (error) {

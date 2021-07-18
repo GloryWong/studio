@@ -1,8 +1,10 @@
-type SettingProp = 'description' | 'locked';
+declare namespace Studio {
+  export type SettingProp = 'description' | 'locked';
 
-type InitSetting = {
-  name: string;
-  location: string;
-  description: string;
-  locked: boolean;
-};
+  export type InitSetting = {
+    name: string;
+    location: string;
+    description: string;
+    locked: boolean;
+  };
+}

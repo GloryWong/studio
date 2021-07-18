@@ -22,7 +22,7 @@ async function createProject(initSetting: any): Promise<string> {
       {
         title: 'Write storage',
         task: () => {
-          const project = {
+          const project: Project.Project = {
             id,
             name,
           };

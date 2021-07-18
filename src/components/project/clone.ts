@@ -5,6 +5,7 @@ import isUrl from 'is-url';
 import * as project from '../../core/project';
 import { openProject } from './open';
 import * as projectIndex from '../../storage/project-index';
+import { promptOpenProject } from './prompts';
 
 async function promptInit(gitRepoUrl?: string): Promise<any> {
   try {
@@ -80,30 +81,9 @@ async function cloneProject(url?: string): Promise<void> {
       );
 
       // open project
-      const { willOpenProject } = await prompt([
-        {
-          type: 'list',
-          name: 'willOpenProject',
-          message: 'Open project?',
-          choices: [
-            {
-              name: 'Not open',
-              value: 'notOpen',
-            },
-            {
-              name: 'Open in new window',
-              value: false,
-            },
-            {
-              name: 'Open in last active window',
-              value: true,
-            },
-          ],
-          default: 0,
-        },
-      ]);
+      const willOpenProject = await promptOpenProject();
 
-      if (willOpenProject !== 'notOpen') {
+      if (willOpenProject !== Project.WillOpenProject.NOT_OPEN) {
         openProject(id, {
           reuseWindow: willOpenProject,
         });

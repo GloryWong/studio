@@ -4,14 +4,14 @@
   "version": "0.0.5",
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
   "bin": {
-    "gs": "./bin/demo.js"
+    "gs": "./bin/studio"
   },
   "bugs": "https://github.com/GloryWong/studio/issues",
   "engines": {
     "node": ">=8.0.0"
   },
   "files": [
-    "bin/demo.js",
+    "bin/studio",
     "/lib",
     ".env"
   ],
@@ -36,7 +36,7 @@
     "copy": "recursive-copy --dot true --overwrite true src/template ./lib/template",
     "clean": "rimraf lib/",
     "test": "exit 0",
-    "link-test": "node ./scripts/link-test.js",
+    "link-test": "node ./scripts/link-test",
     "unlink-test": "node ./scripts/link-test.js --not",
     "prepare": "husky install",
     "prepublishOnly": "npm run build",
@@ -66,6 +66,7 @@
     "pkg-install": "^1.0.0",
     "recursive-copy": "^2.0.13",
     "tslib": "^2.3.0",
+    "type-fest": "^0.20.2",
     "uid": "^2.0.0"
   },
   "devDependencies": {
@@ -80,13 +81,14 @@
     "@types/node": "^16.0.0",
     "@types/node-localstorage": "^1.3.0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
-    "@typescript-eslint/parser": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.3",
     "commitlint": "^12.1.4",
     "eslint": "^7.30.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
     "eslint-config-prettier": "^6.15.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "global-dirs": "^3.0.0",

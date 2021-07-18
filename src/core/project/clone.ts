@@ -59,13 +59,12 @@ async function cloneProject(initSetting: any): Promise<string> {
       {
         title: `Install packages`,
         task: async (ctx, task) => {
-          const ins = utility.installPkgDeps;
-          const result = await ins(ctx.projectPath);
-          if (result === ins.NO_DEPS_INFO) {
+          const result = await utility.installPkgDeps(ctx.projectPath);
+          if (result === Utility.InstallPkgDepsStatus.NO_DEPS_INFO) {
             task.skip('No dependencies info found, skip.');
           }
 
-          if (result === ins.INSTALL_FAILED) {
+          if (result === Utility.InstallPkgDepsStatus.INSTALL_FAILED) {
             task.skip(
               'Install failed. You may need to install dependencies manually.'
             );

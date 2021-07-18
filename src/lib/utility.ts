@@ -82,7 +82,9 @@ function validateLocationAccess(location: string): string | boolean {
   return true;
 }
 
-async function installPkgDeps(dirPath: string): Promise<number> {
+async function installPkgDeps(
+  dirPath: fs.PathLike
+): Promise<Utility.InstallPkgDepsStatus> {
   const files = await readdir(dirPath);
   const cmds = {
     npm: 'npm install',
@@ -97,22 +99,19 @@ async function installPkgDeps(dirPath: string): Promise<number> {
   } else if (files.includes('package.json')) {
     cmd = cmds.npm;
   } else {
-    return installPkgDeps.NO_DEPS_INFO;
+    return Utility.InstallPkgDepsStatus.NO_DEPS_INFO;
   }
 
   const result = await execa.command(cmd, {
-    cwd: dirPath,
+    cwd: String(dirPath),
   });
 
   if (result.failed) {
-    return installPkgDeps.INSTALL_FAILED;
+    return Utility.InstallPkgDepsStatus.INSTALL_FAILED;
   }
 
-  return installPkgDeps.SUCCESS;
+  return Utility.InstallPkgDepsStatus.SUCCESS;
 }
-installPkgDeps.SUCCESS = 0;
-installPkgDeps.NO_DEPS_INFO = 1;
-installPkgDeps.INSTALL_FAILED = 2;
 
 export {
   isNumeric,

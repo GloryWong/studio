@@ -8,7 +8,7 @@ import conf from '../../lib/conf';
 
 function archiveProject(id: string): Promise<void> {
   try {
-    const project: Project = storage.get(id, '');
+    const project: Project.Project = storage.get(id, '');
     const { name: projectName } = project;
 
     const tasks = new Listr([
@@ -19,7 +19,7 @@ function archiveProject(id: string): Promise<void> {
         },
       },
       {
-        title: `Remove '${projectName}' from Index`,
+        title: `Remove '${projectName}' from ProjectList.Index`,
         task: () => {
           projectIndex.remove(id);
         },
