@@ -7,6 +7,7 @@ import storage from '@lib/storage';
 import * as projectIndex from '@storage/project-index';
 import PATH from '@lib/path';
 import * as utility from '@lib/utility';
+import { InstallPkgDepsStatus } from '@enums';
 
 // project name should be unique in a Studio
 async function cloneProject(initSetting: any): Promise<string> {

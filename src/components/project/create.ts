@@ -4,6 +4,7 @@ import { prompt } from 'inquirer';
 import * as project from '@core/project';
 import * as projectIndex from '@storage/project-index';
 import { isValidFileName } from '@lib/utility';
+import { WillOpenProject } from '@enums';
 import { openProject } from './open';
 import { promptOpenProject } from './prompts';
 

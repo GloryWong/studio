@@ -1,4 +1,5 @@
 import { prompt } from 'inquirer';
+import { WillOpenProject } from '@enums';
 
 async function promptOpenProject(options: any = {}): Promise<WillOpenProject> {
   const { willOpenProject }: { willOpenProject: WillOpenProject } =

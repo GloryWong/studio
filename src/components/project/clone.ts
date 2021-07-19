@@ -4,6 +4,7 @@ import { prompt } from 'inquirer';
 import isUrl from 'is-url';
 import * as project from '@core/project';
 import * as projectIndex from '@storage/project-index';
+import { WillOpenProject } from '@enums';
 import { openProject } from './open';
 import { promptOpenProject } from './prompts';
 

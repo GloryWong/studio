@@ -15,12 +15,6 @@ type Project = {
   tags?: Array<ProjectTag>;
 };
 
-declare enum WillOpenProject {
-  NOT_OPEN = 0,
-  OPEN_IN_NEW_WINDOW,
-  RESUME_WINDOW,
-}
-
 type ProjectListItem = {
   id: string;
   name: string;
@@ -37,9 +31,3 @@ type InitSetting = {
   description: string;
   locked: boolean;
 };
-
-declare enum InstallPkgDepsStatus {
-  SUCCESS = 0,
-  NO_DEPS_INFO,
-  INSTALL_FAILED,
-}
