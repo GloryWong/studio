@@ -23,7 +23,7 @@ new Command({ helpByDefault: true })
   .command('search', 'search project', {
     executableFile: path.join(__dirname, 'commands/search.js'),
   })
-  .command('info', 'output studio information', {
+  .command('info', 'get or set information of studio or a project', {
     executableFile: path.join(__dirname, 'commands/info.js'),
   })
   .command('lock', 'lock or unlock studio', {

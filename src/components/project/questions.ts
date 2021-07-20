@@ -6,7 +6,7 @@ const questionProjectTypeSetting = {
   message: 'Choose project type',
   choices: [
     {
-      name: 'Demo (you can chage it to fornaml project later)',
+      name: 'Demo',
       value: ProjectType.DEMO,
     },
     {

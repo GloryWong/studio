@@ -10,6 +10,8 @@ const INDEX_DEFAULT_VALUE: Index = [];
 export {
   add,
   get,
+  setProperty,
+  getProperty,
   remove,
   getAll,
   getIdByCode,
@@ -46,6 +48,31 @@ function add(id: string, value: any): void {
     setAll(index);
   } catch (error) {
     throw new Error(`addToIndex failed: ${error}`);
+  }
+}
+
+function setProperty(id: string, property: string, value: any): void {
+  try {
+    const index: Index = getAll();
+    const i = index.findIndex(({ id: _id }) => _id === id);
+    const indexItem = index[i];
+    if (indexItem) {
+      indexItem[property] = value;
+      index.splice(i, 1, indexItem);
+      setAll(index);
+    }
+  } catch (error) {
+    throw new Error(`set project property failed: ${error}`);
+  }
+}
+
+function getProperty(id: string, property: string): any {
+  try {
+    const index: Index = getAll();
+    const indexItem = index.find(({ id: _id }) => _id === id);
+    return indexItem && indexItem[property];
+  } catch (error) {
+    throw new Error(`get project property failed: ${error}`);
   }
 }
 

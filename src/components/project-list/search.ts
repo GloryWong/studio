@@ -18,7 +18,7 @@ async function searchProjectList(text = ''): Promise<IndexItem | undefined> {
         name: 'projectId',
         message: 'Search project:',
         pageSize: 10,
-        source: (answers: any, input: string) => {
+        source: (answers: any, input = '') => {
           let searchParam = '';
           if (firstTime && text) {
             searchParam = text;
