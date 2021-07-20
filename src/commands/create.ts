@@ -4,7 +4,14 @@ import { createProject } from '@components/project';
 new Command()
   .description('Create a project')
   .argument('[project-name]', 'Project name')
-  .action((projectName: string) => {
-    createProject(projectName);
+  .option(
+    '-y, --yes',
+    'Automatically answer "yes" to any prompts that the create process might print on the command line.'
+  )
+  .action((projectName: string, yes: boolean) => {
+    createProject({
+      projectName,
+      yes,
+    });
   })
   .parseAsync();

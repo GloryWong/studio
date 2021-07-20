@@ -3,11 +3,10 @@ import chalk from 'chalk';
 import { prompt } from 'inquirer';
 import isUrl from 'is-url';
 import * as project from '@core/project';
-import * as projectIndex from '@storage/project-index';
 import { WillOpenProject } from '@types';
 import { openProject } from './open';
 import { promptOpenProject } from './prompts';
-import { questionProjectTypeSetting } from './questions';
+import { questionProjectTypeSetting, questionProjectName } from './questions';
 
 async function promptInit(gitRepoUrl?: string): Promise<any> {
   try {
@@ -37,19 +36,11 @@ async function promptInit(gitRepoUrl?: string): Promise<any> {
         default: () => gitRepoUrl || '',
       },
       {
-        type: 'input',
-        name: 'name',
+        ...questionProjectName,
         message: 'Project name:',
         default: ({ url }: { url: string }) => {
           const u = url || gitRepoUrl || 'project';
           return u.substring(u.lastIndexOf('/') + 1, u.lastIndexOf('.git'));
-        },
-        validate: (name: string) => {
-          if (projectIndex.existsByName(name)) {
-            return `Project with name '${name}' already exists. Type another name.`;
-          }
-
-          return true;
         },
       },
       questionProjectTypeSetting,

@@ -2,51 +2,27 @@ import { unilog } from '@gloxy/unilog';
 import chalk from 'chalk';
 import { prompt } from 'inquirer';
 import * as project from '@core/project';
-import * as projectIndex from '@storage/project-index';
-import { isValidFileName } from '@lib/utility';
 import { WillOpenProject } from '@types';
 import { openProject } from './open';
 import { promptOpenProject } from './prompts';
-import { questionProjectTypeSetting } from './questions';
-
-function validateProjectName(input: string): string | boolean {
-  if (!isValidFileName(input)) {
-    return 'This name is not a valid file name, choose another name.';
-  }
-
-  if (projectIndex.existsByName(input)) {
-    return `${chalk.bold.yellow(input)} has existed, choose another name.`;
-  }
-
-  return true;
-}
+import { questionProjectTypeSetting, questionProjectName } from './questions';
+import { validateProjectName } from './validation';
 
 async function promptInit(projectName?: string): Promise<any> {
   try {
-    let needProjectName = true;
-    if (projectName) {
-      const result = validateProjectName(projectName);
-      if (typeof result === 'string') {
-        unilog.warn(result);
-      } else {
-        needProjectName = false;
-      }
-    }
-
     const answers = await prompt([
       {
-        type: 'input',
-        name: 'name',
-        message: 'Name your project:',
-        filter: (input) => input.trim(),
-        validate: (input) => {
-          if (input.length === 0) {
-            return 'Please input a name for your project.';
+        ...questionProjectName,
+        when: () => {
+          if (projectName) {
+            const result = validateProjectName(projectName);
+            if (result === true) {
+              return false;
+            }
+            unilog.warn(result);
           }
-
-          return validateProjectName(input);
+          return true;
         },
-        when: needProjectName,
       },
       questionProjectTypeSetting,
       {
@@ -85,10 +61,35 @@ async function promptInit(projectName?: string): Promise<any> {
   }
 }
 
-async function createProject(projectName?: string): Promise<void> {
+async function createProject({
+  projectName,
+  yes,
+}: {
+  projectName?: string;
+  yes?: boolean;
+}): Promise<void> {
   unilog('Create Project');
   try {
-    const initSetting = await promptInit(projectName);
+    let initSetting;
+    if (yes) {
+      let prjName;
+      if (projectName) {
+        const result = validateProjectName(projectName);
+        if (result === true) {
+          prjName = projectName;
+        } else {
+          unilog.warn(result);
+        }
+      }
+
+      prjName = prjName || (await prompt([questionProjectName])).name;
+
+      initSetting = {
+        name: prjName,
+      };
+    } else {
+      initSetting = await promptInit(projectName);
+    }
 
     if (initSetting) {
       // create project

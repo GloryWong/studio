@@ -63,7 +63,7 @@ async function createProject(initSetting: any): Promise<string> {
 
           return Promise.resolve();
         },
-        skip: () => !initGit,
+        enabled: () => initGit,
       },
       {
         title: `${pkgManager} initialization`,
@@ -97,7 +97,7 @@ async function createProject(initSetting: any): Promise<string> {
 
           return Promise.resolve();
         },
-        skip: () => !pkgManager,
+        enabled: () => pkgManager,
       },
     ]);
 
