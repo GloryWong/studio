@@ -3,7 +3,8 @@ import { createProject } from '@components/project';
 
 new Command()
   .description('Create a project')
-  .action(() => {
-    createProject();
+  .argument('[project-name]', 'Project name')
+  .action((projectName: string) => {
+    createProject(projectName);
   })
   .parseAsync();

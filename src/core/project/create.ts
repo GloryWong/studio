@@ -14,7 +14,7 @@ import { Project, ProjectType } from '@types';
 async function createProject(initSetting: any): Promise<string> {
   const id = uid();
   try {
-    const { name, initGit, initPkg, pkgManager, projectType } = initSetting;
+    const { name, initGit, pkgManager, projectType } = initSetting;
     if (projectIndex.existsByName(name)) {
       throw new Error(`same name project '${name}' already exists`);
     }
@@ -51,7 +51,7 @@ async function createProject(initSetting: any): Promise<string> {
         },
       },
       {
-        title: 'Initialize project with git',
+        title: 'Git initialization',
         task: async (ctx) => {
           const result = await execa('git', ['init'], {
             cwd: ctx.projectPath,
@@ -66,7 +66,7 @@ async function createProject(initSetting: any): Promise<string> {
         skip: () => !initGit,
       },
       {
-        title: `Initialize project with ${pkgManager}`,
+        title: `${pkgManager} initialization`,
         task: async (ctx) => {
           // projectInstall({
           //   prefer: pkgManager,
@@ -97,7 +97,7 @@ async function createProject(initSetting: any): Promise<string> {
 
           return Promise.resolve();
         },
-        skip: () => !initPkg,
+        skip: () => !pkgManager,
       },
     ]);
 

@@ -9,8 +9,30 @@ import { openProject } from './open';
 import { promptOpenProject } from './prompts';
 import { questionProjectTypeSetting } from './questions';
 
-async function promptInit(): Promise<any> {
+function validateProjectName(input: string): string | boolean {
+  if (!isValidFileName(input)) {
+    return 'This name is not a valid file name, choose another name.';
+  }
+
+  if (projectIndex.existsByName(input)) {
+    return `${chalk.bold.yellow(input)} has existed, choose another name.`;
+  }
+
+  return true;
+}
+
+async function promptInit(projectName?: string): Promise<any> {
   try {
+    let needProjectName = true;
+    if (projectName) {
+      const result = validateProjectName(projectName);
+      if (typeof result === 'string') {
+        unilog.warn(result);
+      } else {
+        needProjectName = false;
+      }
+    }
+
     const answers = await prompt([
       {
         type: 'input',
@@ -22,18 +44,9 @@ async function promptInit(): Promise<any> {
             return 'Please input a name for your project.';
           }
 
-          if (!isValidFileName(input)) {
-            return 'This name is not a valid file name, choose another name.';
-          }
-
-          if (projectIndex.existsByName(input)) {
-            return `${chalk.bold.yellow(
-              input
-            )} has existed, choose another name.`;
-          }
-
-          return true;
+          return validateProjectName(input);
         },
+        when: needProjectName,
       },
       questionProjectTypeSetting,
       {
@@ -50,14 +63,6 @@ async function promptInit(): Promise<any> {
             value: 'pkgManager',
           },
         ],
-        default: ['git', 'pkgManager'],
-      },
-      {
-        type: 'confirm',
-        name: 'initGit',
-        message: `Initialize project with ${chalk.bold.yellow('git')}?`,
-        when: ({ tools }) => tools.includes('git'),
-        default: true,
       },
       {
         type: 'list',
@@ -67,28 +72,23 @@ async function promptInit(): Promise<any> {
         choices: ['npm', 'yarn'],
         default: 0,
       },
-      {
-        type: 'confirm',
-        name: 'initPkg',
-        message: ({ pkgManager }) =>
-          `Initialize project with ${chalk.bold.yellow(pkgManager)}`,
-        when: ({ tools }) => tools.includes('pkgManager'),
-        default: true,
-      },
     ]);
 
-    return answers;
+    return {
+      ...answers,
+      initGit: answers.tools.includes('git'),
+      name: answers.name || projectName,
+    };
   } catch (error) {
     unilog.mid('Init prompts').fail(error);
     return null;
   }
 }
 
-async function createProject(): Promise<void> {
+async function createProject(projectName?: string): Promise<void> {
   unilog('Create Project');
-
   try {
-    const initSetting = await promptInit();
+    const initSetting = await promptInit(projectName);
 
     if (initSetting) {
       // create project
