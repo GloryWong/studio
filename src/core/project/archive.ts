@@ -5,6 +5,7 @@ import * as projectIndex from '@storage/project-index';
 import PATH from '@lib/path';
 import * as utility from '@lib/utility';
 import conf from '@lib/conf';
+import { Project } from '@types';
 
 function archiveProject(id: string): Promise<void> {
   try {

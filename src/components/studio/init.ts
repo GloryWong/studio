@@ -6,6 +6,7 @@ import path from 'path';
 import * as utility from '@lib/utility';
 import * as studio from '@core/studio';
 import { hasStudioInited } from '@utils/init';
+import { InitSetting } from '@types';
 
 const DEFAULT_INIT_SETTING: InitSetting = {
   location: process.cwd(),

@@ -1,13 +1,15 @@
 import Fuse from 'fuse.js';
 import * as index from '@storage/project-index';
+import { ProjectList } from '@types';
 
 function getProjectList(): ProjectList {
   try {
     const indexAll = index.getAll();
     const projectList: ProjectList = indexAll.map(
-      ({ name, id }: { name: string; id: string }, i: number) => ({
+      ({ name, id, type }, i: number) => ({
         id,
         name,
+        type,
         code: i, // init code
       })
     );

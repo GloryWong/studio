@@ -4,6 +4,7 @@ import mkdirp from 'mkdirp';
 import PATH from '@lib/path';
 import { hasStudioInited } from '@utils/init';
 import conf from '@lib/conf';
+import { InitSetting } from '@types';
 
 /**
  * @description: the **most important** first step for Studio.

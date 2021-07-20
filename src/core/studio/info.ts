@@ -1,4 +1,5 @@
 import conf from '@lib/conf';
+import { SettingProp } from '@types';
 import { getProjectCount } from '../project-list';
 
 function getStudioInfo(): any {

@@ -7,17 +7,18 @@ import storage from '@lib/storage';
 import * as projectIndex from '@storage/project-index';
 import PATH from '@lib/path';
 import * as utility from '@lib/utility';
-import { InstallPkgDepsStatus } from '@enums';
+import { InstallPkgDepsStatus, ProjectType } from '@types';
 
 // project name should be unique in a Studio
 async function cloneProject(initSetting: any): Promise<string> {
   const id = uid();
   try {
-    const { name, url, installPkg } = initSetting;
+    const { name, url, installPkg, projectType } = initSetting;
     if (projectIndex.existsByName(name)) {
       throw new Error(`same name project '${name}' already exists`);
     }
 
+    const ptype = projectType || ProjectType.DEMO;
     const tasks = new Listr([
       {
         title: 'Write storage',
@@ -25,6 +26,7 @@ async function cloneProject(initSetting: any): Promise<string> {
           const project = {
             id,
             name,
+            type: ptype,
           };
 
           storage.add(id, project);
@@ -35,6 +37,7 @@ async function cloneProject(initSetting: any): Promise<string> {
         task: () => {
           projectIndex.add(id, {
             name,
+            type: ptype,
           });
         },
       },

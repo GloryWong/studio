@@ -1,5 +1,5 @@
 import { prompt } from 'inquirer';
-import { WillOpenProject } from '@enums';
+import { WillOpenProject } from '@types';
 
 async function promptOpenProject(options: any = {}): Promise<WillOpenProject> {
   const { willOpenProject }: { willOpenProject: WillOpenProject } =
@@ -11,15 +11,15 @@ async function promptOpenProject(options: any = {}): Promise<WillOpenProject> {
         choices: [
           {
             name: 'Not open',
-            value: 'NOT_OPEN',
+            value: WillOpenProject.NOT_OPEN,
           },
           {
             name: 'Open in new window',
-            value: 'OPEN_IN_NEW_WINDOW',
+            value: WillOpenProject.OPEN_IN_NEW_WINDOW,
           },
           {
             name: 'Open in last active window',
-            value: 'REUSE_WINDOW',
+            value: WillOpenProject.RESUME_WINDOW,
           },
         ],
         default: 0,

@@ -11,6 +11,7 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "preserveConstEnums": true,
     "baseUrl": "src",
     "paths": {
       "@*": ["*"]

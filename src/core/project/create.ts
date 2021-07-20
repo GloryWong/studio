@@ -8,16 +8,18 @@ import chalk from 'chalk';
 import storage from '@lib/storage';
 import * as projectIndex from '@storage/project-index';
 import PATH from '@lib/path';
+import { Project, ProjectType } from '@types';
 
 // project name should be unique in a Studio
 async function createProject(initSetting: any): Promise<string> {
   const id = uid();
   try {
-    const { name, initGit, initPkg, pkgManager } = initSetting;
+    const { name, initGit, initPkg, pkgManager, projectType } = initSetting;
     if (projectIndex.existsByName(name)) {
       throw new Error(`same name project '${name}' already exists`);
     }
 
+    const ptype = projectType || ProjectType.DEMO;
     const tasks = new Listr([
       {
         title: 'Write storage',
@@ -25,6 +27,7 @@ async function createProject(initSetting: any): Promise<string> {
           const project: Project = {
             id,
             name,
+            type: ptype,
           };
 
           storage.add(id, project);
@@ -35,6 +38,7 @@ async function createProject(initSetting: any): Promise<string> {
         task: () => {
           projectIndex.add(id, {
             name,
+            type: ptype,
           });
         },
       },

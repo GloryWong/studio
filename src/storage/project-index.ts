@@ -1,4 +1,5 @@
 import storage from '@lib/storage';
+import { Index, IndexItem } from '@types';
 
 // Note: the array index of item in INDEX storage as Code
 

@@ -6,7 +6,7 @@ import os from 'os';
 import chalk from 'chalk';
 import { readdir } from 'fs/promises';
 import execa from 'execa';
-import { InstallPkgDepsStatus } from '@enums';
+import { InstallPkgDepsStatus } from '@types';
 
 function isNumeric(val: string | number): boolean {
   return typeof val === 'number' ? _.isNumber(val) : /^\d+$/.test(val);

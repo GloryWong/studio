@@ -4,9 +4,10 @@ import { prompt } from 'inquirer';
 import * as project from '@core/project';
 import * as projectIndex from '@storage/project-index';
 import { isValidFileName } from '@lib/utility';
-import { WillOpenProject } from '@enums';
+import { WillOpenProject } from '@types';
 import { openProject } from './open';
 import { promptOpenProject } from './prompts';
+import { questionProjectTypeSetting } from './questions';
 
 async function promptInit(): Promise<any> {
   try {
@@ -34,6 +35,7 @@ async function promptInit(): Promise<any> {
           return true;
         },
       },
+      questionProjectTypeSetting,
       {
         type: 'checkbox',
         name: 'tools',
@@ -70,6 +72,7 @@ async function promptInit(): Promise<any> {
         name: 'initPkg',
         message: ({ pkgManager }) =>
           `Initialize project with ${chalk.bold.yellow(pkgManager)}`,
+        when: ({ tools }) => tools.includes('pkgManager'),
         default: true,
       },
     ]);
@@ -97,7 +100,7 @@ async function createProject(): Promise<void> {
 
       if (willOpenProject !== WillOpenProject.NOT_OPEN) {
         openProject(id, {
-          reuseWindow: willOpenProject,
+          reuseWindow: willOpenProject === WillOpenProject.RESUME_WINDOW,
         });
       }
     }

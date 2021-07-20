@@ -4,9 +4,10 @@ import { prompt } from 'inquirer';
 import isUrl from 'is-url';
 import * as project from '@core/project';
 import * as projectIndex from '@storage/project-index';
-import { WillOpenProject } from '@enums';
+import { WillOpenProject } from '@types';
 import { openProject } from './open';
 import { promptOpenProject } from './prompts';
+import { questionProjectTypeSetting } from './questions';
 
 async function promptInit(gitRepoUrl?: string): Promise<any> {
   try {
@@ -51,6 +52,7 @@ async function promptInit(gitRepoUrl?: string): Promise<any> {
           return true;
         },
       },
+      questionProjectTypeSetting,
       {
         type: 'confirm',
         name: 'installPkg',
@@ -89,7 +91,7 @@ async function cloneProject(url?: string): Promise<void> {
 
       if (willOpenProject !== WillOpenProject.NOT_OPEN) {
         openProject(id, {
-          reuseWindow: willOpenProject,
+          reuseWindow: willOpenProject === WillOpenProject.RESUME_WINDOW,
         });
       }
     }
