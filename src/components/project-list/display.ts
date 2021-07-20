@@ -2,6 +2,7 @@ import columns from 'cli-columns';
 import { unilog } from '@gloxy/unilog';
 import chalk from 'chalk';
 import { getProjectList } from '@core/project-list';
+import { ProjectType } from '@types';
 
 function displayProjectList() {
   unilog('Display list');
@@ -9,8 +10,10 @@ function displayProjectList() {
     const projectList = getProjectList();
 
     const formatedList = projectList.map(
-      ({ code, name }: { code: number; name: string }) => {
-        return `[${chalk.bold.green(code)}] ${chalk.bold(name)}`;
+      ({ name, type }: { name: string; type: ProjectType }) => {
+        return `${chalk.bold(
+          `${type === ProjectType.DEMO ? chalk.dim(name) : name}`
+        )}`;
       }
     );
 

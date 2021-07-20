@@ -31,9 +31,7 @@ async function searchProjectList(text = ''): Promise<IndexItem | undefined> {
             .searchProjectList(searchParam)
             // wraped to inquirer Choice
             .map(({ id, name, type }) => ({
-              name: `${name}${
-                type === ProjectType.DEMO ? ` ${chalk.yellow.dim('demo')}` : ''
-              }`,
+              name: `${type === ProjectType.DEMO ? chalk.dim(name) : name}`,
               value: id,
             }));
           return result;
