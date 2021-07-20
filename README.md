@@ -36,8 +36,9 @@ Commands:
   init           init studio
   archive        archive studio or a project
   search         search project
-  info           output studio information
+  info           get or set information of studio or a project
   lock           lock or unlock studio
   list           list projects in the studio
   create         create a project
+  clone          clone a project from git repository
 ```
