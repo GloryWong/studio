@@ -7,7 +7,11 @@ import conf from '@lib/conf';
 import { InitSetting } from '@types';
 
 /**
- * @description: the **most important** first step for Studio.
+ * The very first step for using Studio.
+ * @param name - the name of the Studio
+ * @param location - the location in which the Studio will be placed
+ * @param description - the description of the Studio
+ * @param locked - whether the Studio should be locked
  */
 async function initStudio({
   name,

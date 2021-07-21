@@ -31,16 +31,20 @@
     "url": "git+https://github.com/GloryWong/studio.git"
   },
   "scripts": {
-    "dev": "npm run clean && tsc-watch --sourceMap --onSuccess 'npm run tscrp'",
-    "build": "npm run clean && tsc && npm run tscrp",
+    "predev": "npm run clean",
+    "dev": "tsc-watch --sourceMap --onSuccess 'npm run tscrp'",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "postbuild": "npm run tscrp",
     "tscrp": "tsconfig-replace-paths --project tsconfig.json",
     "clean": "rimraf lib/",
     "test": "exit 0",
-    "link-test": "node ./scripts/link-test",
-    "unlink-test": "node ./scripts/link-test.js --not",
+    "linkTest": "node ./scripts/link-test",
+    "linkTest:not": "npm run link-test -- --not",
     "prepare": "husky install",
     "prepublishOnly": "npm run build",
-    "lint": "eslint --ext .js,.ts --fix src/",
+    "lint": "eslint --ext .js,.ts",
+    "lint:fix": "npm run lint -- --fix src/",
     "prettier": "prettier --write --ignore-unknown src/"
   },
   "dependencies": {
@@ -112,7 +116,7 @@
   },
   "lint-staged": {
     "*.{js,ts}": [
-      "npm run lint",
+      "npm run lint:fix",
       "npm run prettier"
     ]
   }

@@ -61,6 +61,11 @@ async function promptInit(projectName?: string): Promise<any> {
   }
 }
 
+/**
+ * UI: Create Project
+ * @param projectName - Name of the project
+ * @param yes - whether to use the default configuration for new project
+ */
 async function createProject({
   projectName,
   yes,

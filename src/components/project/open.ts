@@ -2,6 +2,11 @@ import { unilog } from '@gloxy/unilog';
 import { prompt } from 'inquirer';
 import * as project from '@core/project';
 
+/**
+ * UI: Open a project in default editor
+ * @param id - Project id
+ * @param options - Addtional options
+ */
 async function openProject(id: string, options?: any): Promise<void> {
   try {
     let reuseWindow: boolean;

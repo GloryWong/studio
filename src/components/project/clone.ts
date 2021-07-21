@@ -62,7 +62,8 @@ async function promptInit(gitRepoUrl?: string): Promise<any> {
 }
 
 /**
- * @param url - A git repository url which will be cloned
+ * UI: clone a project from git repository
+ * @param url - git repository url
  */
 async function cloneProject(url?: string): Promise<void> {
   unilog('Clone Project');

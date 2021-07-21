@@ -4,7 +4,8 @@ import * as project from '@core/project';
 import { searchProjectList } from '../project-list';
 
 /**
- * @param projectName - the project which will be archived
+ * UI: Achive project
+ * @param projectName - the project name of which will be archived
  */
 async function archiveProject(projectName: string): Promise<void> {
   unilog('Achive project');

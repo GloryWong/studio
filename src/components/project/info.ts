@@ -4,6 +4,10 @@ import { prompt } from 'inquirer';
 import { searchProjectList } from '../project-list';
 import { questionProjectTypeSetting } from './questions';
 
+/**
+ * UI: Display or set a project's information
+ * @param action - get: display or set: set
+ */
 async function infoProject(action: 'get' | 'set'): Promise<void> {
   unilog('Info Project');
   try {
