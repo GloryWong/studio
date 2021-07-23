@@ -1,7 +1,8 @@
 import Conf from 'conf';
 
 const conf: any = new Conf({
-  configName: process.env.CONFIG_NAME,
+  projectName: process.env.GSTUDIO_NAME,
+  projectSuffix: '',
 });
 
 export default conf;

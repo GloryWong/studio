@@ -8,7 +8,7 @@ new Command()
     '-y, --yes',
     'Automatically answer "yes" to any prompts that the create process might print on the command line.'
   )
-  .action((projectName: string, yes: boolean) => {
+  .action((projectName: string, { yes }) => {
     createProject({
       projectName,
       yes,

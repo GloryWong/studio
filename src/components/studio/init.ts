@@ -1,16 +1,16 @@
 import { unilog } from '@gloxy/unilog';
 import chalk from 'chalk';
 import { prompt } from 'inquirer';
-import os from 'os';
 import path from 'path';
 import * as utility from '@lib/utility';
 import * as studio from '@core/studio';
 import { hasStudioInited } from '@utils/init';
 import { InitSetting } from '@types';
+import envPaths from 'env-paths';
 
 const DEFAULT_INIT_SETTING: InitSetting = {
-  location: process.cwd(),
-  name: process.env.STUDIO_DEFAULT_NAME || 'shit',
+  location: envPaths(String(process.env.GSTUDIO_NAME), { suffix: '' }).data,
+  name: process.env.STUDIO_DEFAULT_NAME || 'MyStudio',
   description: 'My Studio',
   locked: true,
 };
@@ -29,9 +29,9 @@ async function promptInit(): Promise<InitSetting | null> {
             short: process.cwd(),
           },
           {
-            name: 'User Home',
-            value: process.env.HOME || os.homedir(),
-            short: process.env.HOME || os.homedir(),
+            name: 'System recommend',
+            value: DEFAULT_INIT_SETTING.location,
+            short: DEFAULT_INIT_SETTING.location,
           },
           {
             name: 'Customize',

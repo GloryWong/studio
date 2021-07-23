@@ -23,7 +23,7 @@ $ gs --help
 
 Usage: gs [options] [command] [project-name]
 
-Description: Manage local projects and demos in one place instantly and smoothly.
+Description: Manage local projects and demos in a single place instantly and smoothly.
 
 Arguments:
   project-name   choose a project
