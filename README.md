@@ -2,7 +2,7 @@
 
 **Command Line Interface**
 
-Manage local projects and demos in one place instantly and smoothly.
+Manage local projects and demos in a single place instantly and smoothly.
 
 # Install
 
