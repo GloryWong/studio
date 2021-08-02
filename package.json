@@ -1,7 +1,7 @@
 {
   "name": "@gloxy/studio",
   "description": "Manage local projects and demos in a single place instantly and smoothly.",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "Glory Wong Zhaohui <glorywong1001@gmail.com>",
   "bin": {
     "gs": "./bin/studio"
