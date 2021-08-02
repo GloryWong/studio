@@ -6,6 +6,7 @@ import * as project from '@core/project';
  * UI: Open a project in default editor
  * @param id - Project id
  * @param options - Addtional options
+ *        : reuseWindow - reuse last active window
  */
 async function openProject(id: string, options?: any): Promise<void> {
   try {
