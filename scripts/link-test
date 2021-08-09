@@ -13,12 +13,12 @@ const CLI_NAME = 'gstest';
 const cliPath = path.join(globalDirs.npm.binaries, CLI_NAME);
 
 unilog(`Global symbolic link bin ${chalk.yellow.bold(CLI_NAME)}`);
-if (process.argv[2] === '--no') {
+if (process.argv[2] === '--not') {
   unlink(cliPath)
     .then(() => unilog.succeed('removed.'))
     .catch((err) => unilog.fail('failed to remove', err));
 } else {
-  // symlink gs-test to global bin
+  // symlink gstest to global bin
   const ori = path.resolve(__dirname, '..', 'bin/studio-test');
   chmod(ori, 0o755)
     .then(() => symlinkDir(ori, cliPath))

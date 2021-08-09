@@ -50,7 +50,7 @@ async function archive(
   try {
     const archivedPath = path.join(
       process.env.HOME || os.homedir(),
-      process.env.STUDIO_ARCHIVE_DIR || '',
+      process.env.GSTUDIO_STUDIO_ARCHIVE_DIR || '',
       subpath,
       destName
     );

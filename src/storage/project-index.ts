@@ -4,7 +4,7 @@ import { Index, IndexItem } from '@types';
 // Note: the array index of item in INDEX storage as Code
 
 // constants
-const INDEX_NAME: string = process.env.STUDIO_INDEX_NAME || '';
+const INDEX_NAME: string = process.env.GSTUDIO_STUDIO_INDEX_NAME || '';
 const INDEX_DEFAULT_VALUE: Index = [];
 
 export {

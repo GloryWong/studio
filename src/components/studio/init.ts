@@ -10,7 +10,7 @@ import envPaths from 'env-paths';
 
 const DEFAULT_INIT_SETTING: InitSetting = {
   location: envPaths(String(process.env.GSTUDIO_NAME), { suffix: '' }).data,
-  name: process.env.STUDIO_DEFAULT_NAME || 'MyStudio',
+  name: process.env.GSTUDIO_STUDIO_DEFAULT_NAME || 'MyStudio',
   description: 'My Studio',
   locked: true,
 };
