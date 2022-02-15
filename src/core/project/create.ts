@@ -14,7 +14,13 @@ import { Project, ProjectType } from '@types';
 async function createProject(initSetting: any): Promise<string> {
   const id = uid();
   try {
-    const { name, initGit, pkgManager, projectType } = initSetting;
+    const {
+      name,
+      initGit,
+      pkgManager,
+      projectType,
+      willCreateDir = true,
+    } = initSetting;
     if (projectIndex.existsByName(name)) {
       throw new Error(`same name project '${name}' already exists`);
     }
@@ -49,6 +55,7 @@ async function createProject(initSetting: any): Promise<string> {
           mkdirp.sync(projectPath);
           ctx.projectPath = projectPath;
         },
+        enabled: () => willCreateDir,
       },
       {
         title: 'Git initialization',
